@@ -21,6 +21,10 @@
             android:name="com.nicodangelo.pantrie.util.ConvertMass"
             android:label="@string/title_activity_convert_mass" >
         </activity>
+        <activity
+            android:name="com.nicodangelo.pantrie.main.NewLogIn"
+            android:label="@string/title_activity_new_log_in" >
+        </activity>
     </application>
 
 </manifest>
