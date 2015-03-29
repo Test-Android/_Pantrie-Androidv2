@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.util.Settings;
 
@@ -27,9 +28,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
+//whole or partial???
+
 public class ListMain extends ActionBarActivity
 {
     ArrayList<String> list = new ArrayList<String>();
+    ArrayList<Item> items = new ArrayList<Item>();
     ArrayAdapter<String> adapter;
     ItemController itemList = new ItemController();
     int curSize = 0;
@@ -49,21 +53,6 @@ public class ListMain extends ActionBarActivity
         Button btn = (Button) findViewById(R.id.btnAdd);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 
-        View.OnClickListener listener = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                EditText edit = (EditText) findViewById(R.id.txtItem);
-                itemList.addItem(edit.getText().toString());
-                list.add(itemList.getName(curSize));
-                edit.setText("");
-                curSize++;
-                adapter.notifyDataSetChanged();
-            }
-        };
-
-        btn.setOnClickListener(listener);
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -247,6 +236,83 @@ public class ListMain extends ActionBarActivity
             }
         }
 
+    }
+
+    public void changeSort(View view)
+    {
+        items = ItemController.items;
+    }
+
+    public void editItemsClick(View view)
+    {
+        br = new AlertDialog.Builder(ListMain.this);
+        br.setTitle("Create New Item: All Fields Required");
+        final EditText name = new EditText(ListMain.this);
+        name.setHint("Name of item");
+        final EditText amount = new EditText(ListMain.this);
+        amount.setHint("Amount of items");
+
+        name.setInputType(InputType.TYPE_CLASS_TEXT);
+        amount.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        LinearLayout lay = new LinearLayout(ListMain.this);
+        lay.setOrientation(LinearLayout.VERTICAL);
+        lay.addView(name);
+        lay.addView(amount);
+        br.setView(lay);
+        br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+                itemList.addItem(name.getText().toString());
+                if (!TextUtils.isEmpty(amount.getText().toString()))
+                    itemList.setAmount(curSize, Integer.parseInt(amount.getText().toString()));
+                list.add(itemList.getInfo(curSize));
+                adapter.notifyDataSetChanged();
+
+                ad.dismiss();
+
+                br = new AlertDialog.Builder(ListMain.this);
+                br.setTitle("Extra Info: Optional");
+                final EditText setLow = new EditText(ListMain.this);
+                setLow.setHint("Set Low Amount Warning");
+                final EditText type = new EditText(ListMain.this);
+                type.setHint("Solid, or Liquid");
+                final EditText measurement = new EditText(ListMain.this);
+                measurement.setHint("Set Measurement Type");
+
+                setLow.setInputType(InputType.TYPE_CLASS_NUMBER);
+                type.setInputType(InputType.TYPE_CLASS_TEXT);
+                measurement.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                LinearLayout lay = new LinearLayout(ListMain.this);
+                lay.setOrientation(LinearLayout.VERTICAL);
+                lay.addView(setLow);
+                lay.addView(type);
+                lay.addView(measurement);
+                br.setView(lay)
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                if (!TextUtils.isEmpty(setLow.getText().toString()))
+                                    itemList.setLowAmount(curSize, Integer.parseInt(setLow.getText()
+                                            .toString()));
+                                if (!TextUtils.isEmpty(type.getText().toString()))
+                                    itemList.setType(curSize, type.getText().toString());
+                                if (!TextUtils.isEmpty(measurement.getText().toString()))
+                                    itemList.setMes(curSize, measurement.getText().toString());
+                                curSize++;
+
+                            }
+                        });
+                ad = br.create();
+                ad = br.show();
+
+            }
+        });
+        ad = br.create();
+        ad = br.show();
     }
 
     @Override

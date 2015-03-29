@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Sorty
 {
-    public static void sortString(ArrayList<String> s, int size)
-    {/*
+    public static ArrayList<Item> sortString(ArrayList<Item> s, int size)
+    {ArrayList<Item> returnMe = new ArrayList<Item>();
+    /*
         String[] sort = new String[size];
         for(int k = 0; k < size; k++)
         {
@@ -16,28 +17,24 @@ public class Sorty
         }*/
 
         long start = System.nanoTime();
-        for (int k = s.size() - 1; k >= 1; k--)
+        for (int k = 0; k < size - 1; k++)
         {
-            String  currentMax = s.get(0);
-            int currentMaxIndex = 0;
-
-            for (int j = 1; j <= k; j++)
+            int currentMaxIndex = k;
+            for (int j = k + 1; j <= size; j++)
             {
-                if (currentMax.compareTo(s.get(j)) < 0)
+                if (s.get(currentMaxIndex).getName().compareTo(s.get(j).getName()) < 0)
                 {
-                    currentMax = s.get(j);
                     currentMaxIndex = j;
                 }
-            }
-            if (currentMaxIndex != k)
-            {
-                s.add(currentMaxIndex, s.get(k));
-                s.add(k, currentMax);
+                Item smallerWord = s.get(currentMaxIndex);
+                s.add(currentMaxIndex,s.get(k));
+                s.add(k, smallerWord);
             }
         }
 
         long stop = System.nanoTime();
         System.out.println((stop - start));
+        return s;
 
 /*        s.clear();
         for(int k = 0; k < size; k++)

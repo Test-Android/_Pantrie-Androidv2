@@ -8,47 +8,43 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.nicodangelo.pantrie.list.ListMain">
 
-    <EditText
-        android:id="@+id/txtItem"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/hintTxtItem"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lblBtnAdd"
-        android:layout_toRightOf="@id/txtItem"
-        />
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtItem"
-        />
-
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtItem"
-        android:text="@string/txtEmpty"
-        android:gravity="center_horizontal"
-        />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/changeStyle"
+        android:layout_above="@+id/btnAdd"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/changeStyle"
+        android:layout_toStartOf="@+id/changeStyle"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Style"
+        android:id="@+id/changeStyle"
+        android:onClick="changeSort"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/txtItem"
-        android:layout_alignEnd="@+id/txtItem" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Item"
+        android:id="@+id/btnAdd"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="editItemsClick"/>
 
 </RelativeLayout>
 
