@@ -1,5 +1,4 @@
-package com.example.jetts.pantrie;
-
+package com.nicodangelo.pantrie;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
