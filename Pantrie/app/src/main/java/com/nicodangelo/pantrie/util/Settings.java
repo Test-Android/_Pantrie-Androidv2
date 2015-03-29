@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.game.ArrowGame;
 import com.parse.ParseUser;
 
 public class Settings extends ActionBarActivity {
@@ -54,6 +55,11 @@ public class Settings extends ActionBarActivity {
     {
         ParseUser.logOut();
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+    }
+    public void startGame(View view)
+    {
+        Intent i = new Intent(this, ArrowGame.class);
+        startActivity(i);
     }
 }
 

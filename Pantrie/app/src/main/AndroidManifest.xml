@@ -17,23 +17,23 @@
         </intent-filter>
 
         <activity
-            android:name="com.nicodangelo.pantrie.util.ConvertVolume"
+            android:name=".util.ConvertVolume"
             android:label="@string/title_activity_convert_volume" >
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.util.ConvertMass"
+            android:name=".util.ConvertMass"
             android:label="@string/title_activity_convert_mass" >
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.main.NewLogIn"
+            android:name=".main.NewLogIn"
             android:label="@string/title_activity_new_log_in" >
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.util.Settings"
+            android:name=".util.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.main.MainPantrie"
+            android:name=".main.MainPantrie"
             android:label="@string/title_activity_main_pantrie" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,12 +42,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.main.ForgotPassword"
+            android:name=".main.ForgotPassword"
             android:label="@string/title_activity_forgot_password" >
         </activity>
         <activity
-            android:name="com.nicodangelo.pantrie.list.ListMain"
+            android:name=".list.ListMain"
             android:label="@string/title_activity_list_main" >
+        </activity>
+        <activity
+            android:name=".game.ArrowGame"
+            android:label="@string/title_activity_arrow_game" >
         </activity>
     </application>
 
