@@ -42,6 +42,10 @@
             android:name="com.nicodangelo.pantrie.main.ForgotPassword"
             android:label="@string/title_activity_forgot_password" >
         </activity>
+        <activity
+            android:name="com.nicodangelo.pantrie.list.ListMain"
+            android:label="@string/title_activity_list_main" >
+        </activity>
     </application>
 
 </manifest>
