@@ -57,4 +57,4 @@ public class Settings extends ActionBarActivity {
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
     }
 }
-}
+
