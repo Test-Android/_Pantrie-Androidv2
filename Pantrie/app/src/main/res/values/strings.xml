@@ -36,5 +36,6 @@
     <string name="title_activity_convert_volume">ConvertVolume</string>
     <string name="title_activity_convert_mass">ConvertMass</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_main_pantrie">MainPantrie</string>
 >>>>>>> origin/master
 </resources>

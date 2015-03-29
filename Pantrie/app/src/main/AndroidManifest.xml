@@ -23,11 +23,24 @@
         </activity>
         <activity
             android:name="com.nicodangelo.pantrie.main.NewLogIn"
-            android:label="@string/title_activity_new_log_in">
+            android:label="@string/title_activity_new_log_in" >
         </activity>
         <activity
             android:name="com.nicodangelo.pantrie.util.Settings"
             android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.nicodangelo.pantrie.main.MainPantrie"
+            android:label="@string/title_activity_main_pantrie" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.nicodangelo.pantrie.main.ForgotPassword"
+            android:label="@string/title_activity_forgot_password" >
         </activity>
     </application>
 
