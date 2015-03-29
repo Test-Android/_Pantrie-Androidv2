@@ -19,7 +19,6 @@ public class Settings extends ActionBarActivity {
         setContentView(R.layout.activity_settings);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
