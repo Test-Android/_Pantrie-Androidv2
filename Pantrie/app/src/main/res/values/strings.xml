@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pantrie</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="title_activity_new_log_in">NewLogIn</string>
     <string name="hintTxtItem">Enter an item here ...</string>
     <string name="lblBtnAdd">Add Item</string>
@@ -31,4 +32,9 @@
     <string name="itemAmountString">Item Amount</string>
     <string name="lowItemAmountString">Low Amount</string>
     <string name="title_activity_get_info">GetInfo</string>
+=======
+    <string name="title_activity_convert_volume">ConvertVolume</string>
+    <string name="title_activity_convert_mass">ConvertMass</string>
+    <string name="title_activity_settings">Settings</string>
+>>>>>>> origin/master
 </resources>
