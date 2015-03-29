@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
+import com.nicodangelo.pantrie.item.Sorty;
 import com.nicodangelo.pantrie.util.Settings;
 
 import java.io.File;
@@ -45,6 +46,20 @@ public class ListMain extends ActionBarActivity
     @Override
     public void onCreate(Bundle bundle)
     {
+        /*Item item1 = new Item("pickle",2);
+        items.add(item1);
+        Item item2 = new Item("apple",2);
+        items.add(item2);
+        Item item3 = new Item("grape",2);
+        items.add(item3);
+        Item item4 = new Item("cheese",2);
+        items.add(item4);
+        Item item5 = new Item("pear",2);
+        items.add(item5);
+
+
+        curSize = 5;*/
+
         super.onCreate(bundle);
         setContentView(R.layout.activity_list_main);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -71,7 +86,7 @@ public class ListMain extends ActionBarActivity
                                     public void onClick(DialogInterface dialog, int which)
                                     {
                                         br = new AlertDialog.Builder(ListMain.this);
-                                        br.setTitle(itemList.getName(position));
+                                        br.setTitle(items.get(position).getName());
 
                                         final EditText one = new EditText(ListMain.this);
                                         one.setHint("Set Amount");
@@ -92,11 +107,11 @@ public class ListMain extends ActionBarActivity
                                             {
                                                 if(!TextUtils.isEmpty(one.getText().toString()))
                                                 {
-                                                    itemList.setAmount(a, Integer.parseInt(one.getText().toString()));
-                                                    list.set(a,itemList.getInfo(a));
+                                                    items.get(a).setAmount(Integer.parseInt(one.getText().toString()));
+                                                    list.set(a,items.get(a).getName());
                                                 }
                                                 if(!TextUtils.isEmpty(two.getText().toString()))
-                                                    itemList.setAmount(a,Integer.parseInt(two.getText().toString()));
+                                                    items.get(a).setLow(Integer.parseInt(two.getText().toString()));
                                                 adapter.notifyDataSetChanged();
 
                                             }
@@ -133,11 +148,11 @@ public class ListMain extends ActionBarActivity
                                         br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton)
                                             {
-                                                itemList.addItem(name.getText().toString());
-                                                curSize++;
+                                                Item i = new Item(name.getText().toString());
+                                                items.add(i);
                                                 if (!TextUtils.isEmpty(amount.getText().toString()))
-                                                    itemList.setAmount(a +1, Integer.parseInt(amount.getText().toString()));
-                                                list.add(itemList.getName(a + 1));
+                                                    items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
+                                                list.add(items.get(curSize).getName());
                                                 adapter.notifyDataSetChanged();
 
                                                 ad.dismiss();
@@ -166,13 +181,13 @@ public class ListMain extends ActionBarActivity
                                                             public void onClick(DialogInterface dialog, int which)
                                                             {
                                                                 if (!TextUtils.isEmpty(setLow.getText().toString()))
-                                                                    itemList.setLowAmount(a + 1, Integer.parseInt(setLow.getText()
+                                                                    items.get(curSize).setLow(Integer.parseInt(setLow.getText()
                                                                             .toString()));
                                                                 if (!TextUtils.isEmpty(type.getText().toString()))
-                                                                    itemList.setType(a + 1, type.getText().toString());
+                                                                    items.get(curSize).setType(type.getText().toString());
                                                                 if (!TextUtils.isEmpty(measurement.getText().toString()))
-                                                                    itemList.setMes(a + 1, measurement.getText().toString());
-
+                                                                    items.get(curSize).setMeasurement(measurement.getText().toString());
+                                                                curSize++;
                                                             }
                                                         });
 
@@ -187,6 +202,7 @@ public class ListMain extends ActionBarActivity
                                 {
                                     @Override public void onClick(DialogInterface dialog, int which)
                                     {
+                                        ad.dismiss();
                                         br = new AlertDialog.Builder(ListMain.this)
                                                 .setTitle("Info");
                                         final TextView name = new TextView(ListMain.this);
@@ -195,11 +211,11 @@ public class ListMain extends ActionBarActivity
                                         final TextView type = new TextView(ListMain.this);
                                         final TextView mes = new TextView(ListMain.this);
 
-                                        name.setText(itemList.getName(a + 1));
-                                        amount.setText("Amount: " + itemList.getAmount(a + 1));
-                                        lowAmount.setText("Low Amount: " + itemList.getLowAmount(a + 1));
-                                        type.setText("Item Type: " + itemList.getType(a + 1));
-                                        mes.setText("Measurement Type: " + itemList.getMes(a + 1));
+                                        name.setText(items.get(a).getName());
+                                        amount.setText("Amount: " + items.get(a).getAmount());
+                                        lowAmount.setText("Low Amount: " + items.get(a).getLow());
+                                        type.setText("Item Type: " + items.get(a).getType());
+                                        mes.setText("Measurement Type: " + items.get(a).getMeasurment());
 
                                         LinearLayout lay = new LinearLayout(ListMain.this);
                                         lay.setOrientation(LinearLayout.VERTICAL);
@@ -229,9 +245,9 @@ public class ListMain extends ActionBarActivity
         });
         if(getInfo())
         {
-            for(int k = 0; k < itemList.getSpot(); k++)
+            for(int k = 0; k < curSize; k++)
             {
-                list.add(itemList.getInfo(k));
+                list.add("Name: " + items.get(k).getName() + " Amount: " + items.get(k).getAmount());
                 adapter.notifyDataSetChanged();
             }
         }
@@ -240,7 +256,22 @@ public class ListMain extends ActionBarActivity
 
     public void changeSort(View view)
     {
-        items = ItemController.items;
+        ArrayList<Item> sort = new ArrayList<Item>();
+        for(int k = 0; k < items.size(); k++)
+            sort.add(items.get(k));
+//        items.clear();
+        items = Sorty.sortString(items, curSize);
+        sort.clear();
+        list.clear();
+
+        adapter.notifyDataSetChanged();
+        for(int k = 0; k < curSize; k++)
+        {
+            list.add(k, items.get(k).getName());
+            adapter.notifyDataSetChanged();
+        }
+        adapter.notifyDataSetChanged();
+
     }
 
     public void editItemsClick(View view)
@@ -263,10 +294,12 @@ public class ListMain extends ActionBarActivity
         br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton)
             {
-                itemList.addItem(name.getText().toString());
+
+                Item i = new Item(name.getText().toString());
+                items.add(i);
                 if (!TextUtils.isEmpty(amount.getText().toString()))
-                    itemList.setAmount(curSize, Integer.parseInt(amount.getText().toString()));
-                list.add(itemList.getInfo(curSize));
+                    items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
+                list.add(items.get(curSize).getName());
                 adapter.notifyDataSetChanged();
 
                 ad.dismiss();
@@ -296,12 +329,12 @@ public class ListMain extends ActionBarActivity
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 if (!TextUtils.isEmpty(setLow.getText().toString()))
-                                    itemList.setLowAmount(curSize, Integer.parseInt(setLow.getText()
+                                    items.get(curSize).setLow(Integer.parseInt(setLow.getText()
                                             .toString()));
                                 if (!TextUtils.isEmpty(type.getText().toString()))
-                                    itemList.setType(curSize, type.getText().toString());
+                                    items.get(curSize).setType(type.getText().toString());
                                 if (!TextUtils.isEmpty(measurement.getText().toString()))
-                                    itemList.setMes(curSize, measurement.getText().toString());
+                                    items.get(curSize).setMeasurement(measurement.getText().toString());
                                 curSize++;
 
                             }
@@ -360,10 +393,12 @@ public class ListMain extends ActionBarActivity
             br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
-                    itemList.addItem(name.getText().toString());
+
+                    Item i = new Item(name.getText().toString());
+                    items.add(i);
                     if (!TextUtils.isEmpty(amount.getText().toString()))
-                        itemList.setAmount(curSize, Integer.parseInt(amount.getText().toString()));
-                    list.add(itemList.getInfo(curSize));
+                        items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
+                    list.add(items.get(curSize).getName());
                     adapter.notifyDataSetChanged();
 
                     ad.dismiss();
@@ -393,12 +428,12 @@ public class ListMain extends ActionBarActivity
                                 public void onClick(DialogInterface dialog, int which)
                                 {
                                     if (!TextUtils.isEmpty(setLow.getText().toString()))
-                                        itemList.setLowAmount(curSize, Integer.parseInt(setLow.getText()
+                                        items.get(curSize).setLow(Integer.parseInt(setLow.getText()
                                                 .toString()));
                                     if (!TextUtils.isEmpty(type.getText().toString()))
-                                        itemList.setType(curSize, type.getText().toString());
+                                        items.get(curSize).setType(type.getText().toString());
                                     if (!TextUtils.isEmpty(measurement.getText().toString()))
-                                        itemList.setMes(curSize, measurement.getText().toString());
+                                        items.get(curSize).setType(measurement.getText().toString());
                                     curSize++;
 
                                 }

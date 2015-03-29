@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Sorty
 {
     public static ArrayList<Item> sortString(ArrayList<Item> s, int size)
-    {ArrayList<Item> returnMe = new ArrayList<Item>();
+    {
     /*
         String[] sort = new String[size];
         for(int k = 0; k < size; k++)
@@ -19,17 +19,15 @@ public class Sorty
         long start = System.nanoTime();
         for (int k = 0; k < size - 1; k++)
         {
-            int currentMaxIndex = k;
-            for (int j = k + 1; j <= size; j++)
+            int min = k;
+            for (int j = k + 1; j < size; j++)
             {
-                if (s.get(currentMaxIndex).getName().compareTo(s.get(j).getName()) < 0)
-                {
-                    currentMaxIndex = j;
-                }
-                Item smallerWord = s.get(currentMaxIndex);
-                s.add(currentMaxIndex,s.get(k));
-                s.add(k, smallerWord);
+                if (compare(s.get(j).getName(), s.get(min).getName()) != 0)
+                    min = j;
             }
+            Item temp = s.get(k);
+            s.add(k, s.get(min));
+            s.add(min, temp);
         }
 
         long stop = System.nanoTime();
@@ -41,6 +39,28 @@ public class Sorty
         {
             s.add(sort[k]);
         }*/
+    }
+    public static int compare(String one, String two)
+    {
+        int smallArray = 0;
+        if(one.length() < two.length() || one.length() == two.length())
+            smallArray = one.length();
+        else
+            smallArray = two.length();
+        if(!one.equals(two))
+        {
+            for (int k = 0; k < smallArray; k++)
+            {
+                if(one.charAt(k) < two.charAt(k))
+                    return -1;
+                else if(one.charAt(k) > two.charAt(k))
+                    return 0;
+            }
+        }
+        else
+            return 0;
+        return 0;
+
     }
     public static ArrayList<Integer> quickSort(int[] sort, int start, int end)
     {
