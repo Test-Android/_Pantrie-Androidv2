@@ -1,24 +1,25 @@
-package com.example.jetts.pantrie;
+package com.nicodangelo.pantrie.util;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.jetts.pantrie.R;
 
-public class pantrie extends ActionBarActivity {
+public class ConvertMass extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantrie);
+        setContentView(R.layout.activity_convert_mass2);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_pantrie, menu);
+        getMenuInflater().inflate(R.menu.menu_convert_mass, menu);
         return true;
     }
 

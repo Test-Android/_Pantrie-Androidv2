@@ -7,14 +7,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".pantrie"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        <activity
+            android:name="com.nicodangelo.pantrie.util.ConvertVolume"
+            android:label="@string/title_activity_convert_volume" >
+        </activity>
+        <activity
+            android:name="com.nicodangelo.pantrie.util.ConvertMass"
+            android:label="@string/title_activity_convert_mass" >
         </activity>
     </application>
 
