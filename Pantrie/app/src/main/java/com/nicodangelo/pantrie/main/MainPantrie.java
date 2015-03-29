@@ -18,7 +18,7 @@ public class MainPantrie extends ActionBarActivity
 {
     private static EditText usernameText;
     private static EditText passwordText;
-
+    private boolean parseInit = false;
     public static String username = "";
     private static String password = "";
 
@@ -30,12 +30,15 @@ public class MainPantrie extends ActionBarActivity
         setContentView(R.layout.activity_main_pantrie);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        // Enable Local Datastore, and make a Test Parse Object!
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "jGe97HPLspW4X6OfjyP3sHGiiPNvwobOJmoD86AP", "N14XxGfjhENApWZ9LyLBVxG1z09yrZxMUrdTf5IF");
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        if(!parseInit)
+        {
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            // Enable Local Datastore, and make a Test Parse Object!
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this, "jGe97HPLspW4X6OfjyP3sHGiiPNvwobOJmoD86AP", "N14XxGfjhENApWZ9LyLBVxG1z09yrZxMUrdTf5IF");
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            parseInit = true;
+        }
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
