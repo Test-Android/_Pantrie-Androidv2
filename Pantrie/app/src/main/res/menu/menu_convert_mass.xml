@@ -4,4 +4,12 @@
     tools:context="com.nicodangelo.pantrie.util.ConvertMass">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/volume"
+        android:title="Volume"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/length"
+        android:title="length"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -598,7 +598,7 @@ public class ConvertVolume extends ActionBarActivity
         }
         else if(id == R.id.mass)
         {
-            Intent i = new Intent(this, ConversionCalculatorMass.class);
+            Intent i = new Intent(this, ConvertMass.class);
             startActivity(i);
             return true;
         }
