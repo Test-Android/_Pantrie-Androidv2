@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jetts.pantrie.R;
+import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.util.Settings;
 

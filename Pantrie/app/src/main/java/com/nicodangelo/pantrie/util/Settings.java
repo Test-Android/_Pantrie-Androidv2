@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.jetts.pantrie.R;
+import com.nicodangelo.pantrie.R;
 import com.parse.ParseUser;
 
 public class Settings extends ActionBarActivity {

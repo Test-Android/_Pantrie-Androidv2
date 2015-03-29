@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jetts.pantrie.R;
+import com.nicodangelo.pantrie.R;
 
 public class ConvertMass extends ActionBarActivity
 {

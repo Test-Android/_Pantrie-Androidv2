@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jetts.pantrie.R;
+import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.list.ListMain;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
