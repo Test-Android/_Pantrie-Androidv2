@@ -261,18 +261,18 @@ public class ListMain extends ActionBarActivity
 
     public void changeSort(View view)
     {
-        new Thread(new Runnable()
+/*        new Thread(new Runnable()
         {
             @Override
             public void run()
             {
                 System.out.println("Thread Started");
-/*              ArrayList<Item> sort = new ArrayList<Item>();
+              ArrayList<Item> sort = new ArrayList<Item>();
                 for(int k = 0; k < items.size(); k++)
                 {
                     sort.add(items.get(k));
                     System.out.println(sort.get(k).getName());
-                }*/
+                }
 
                 long start = System.nanoTime();
                 int max;
@@ -291,7 +291,7 @@ public class ListMain extends ActionBarActivity
 * /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 * The compare method that i created comapares the chars of the strings rather than the entire string added together and
 * subtracted from the other.
-*/
+
                         if(items.get(j).getName().trim().compareToIgnoreCase(items.get(max).getName().trim()) < 0)
                             max = j;
                         System.out.println("sorting..." + max + " - " + items.get(j).getName() + " with " + items.get(max).getName());
@@ -312,7 +312,7 @@ public class ListMain extends ActionBarActivity
                     System.out.println(item.getName());
                     items.add(item);
                 }
-                    */
+
                 long stop = System.nanoTime();
                 System.out.println((stop - start));
 
@@ -327,7 +327,13 @@ public class ListMain extends ActionBarActivity
         }
                 adapter.notifyDataSetChanged();
             }
-        }).start();
+        }).start(); */
+        items = Sorty.sortAZ(items);
+        for(int k = 0; k < items.size(); k++)
+        {
+            list.set(k, items.get(k).getName());
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public void editItemsClick(View view)
