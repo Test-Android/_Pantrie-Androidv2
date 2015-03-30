@@ -335,7 +335,8 @@ public class ListMain extends ActionBarActivity
         }
         adapter.notifyDataSetChanged();
     }
-
+//WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+// Hell fucking yes it worked.
     public void editItemsClick(View view)
     {
         br = new AlertDialog.Builder(ListMain.this);
