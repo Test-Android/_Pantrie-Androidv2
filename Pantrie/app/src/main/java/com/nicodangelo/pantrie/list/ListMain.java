@@ -268,22 +268,22 @@ public class ListMain extends ActionBarActivity
             public void run()
             {
                 System.out.println("Thread Started");
-                ArrayList<Item> sort = new ArrayList<Item>();
+/*              ArrayList<Item> sort = new ArrayList<Item>();
                 for(int k = 0; k < items.size(); k++)
                 {
                     sort.add(items.get(k));
                     System.out.println(sort.get(k).getName());
-                }
+                }*/
 
                 long start = System.nanoTime();
                 int max;
                 System.out.println("start");
-                for (int k = 0; k < sort.size() - 1; k++)
+                for (int k = 0; k < curSize - 1; k++)
                 {
                     System.out.println("sort size now : " + sort.size());
                     max = k;
                     System.out.println("Max = " + max);
-                    for (int j = k + 1; j < sort.size(); j++)
+                    for (int j = k + 1; j < curSize; j++)
                     {
                         System.out.println("sort size now : " + sort.size());
 /*
@@ -293,30 +293,31 @@ public class ListMain extends ActionBarActivity
 * The compare method that i created comapares the chars of the strings rather than the entire string added together and
 * subtracted from the other.
 */
-                        if(Sorty.compare(sort.get(j).getName().trim(), sort.get(max).getName().trim()) < 0)
+                        if(items.get(j).getName().trim().compareToIgnoreCase(items.get(max).getName().trim()) < 0)
                             max = j;
                         System.out.println("sorting..." + max + " - " + sort.get(j).getName() + " with " + sort.get(max).getName());
                     }
                     if(max != k)
                     {
-                        Item temp = sort.get(k);
-                        sort.add(k, sort.get(max));
-                        sort.add(max, temp);
+                        Item temp = items.get(k);
+                        Item temp2 = items.get(max);
+                        items.add(k, temp2);
+                        items.add(max, temp);
                     }
                 }
-                items.clear();
+//                items.clear();
                 System.out.println("finished sorting...");
-                for(int x = 0; x < sort.size(); x++)
+/*              for(int x = 0; x < sort.size(); x++)
                 {
                     Item item = new Item(sort.get(x).getName(),sort.get(x).getAmount());
                     System.out.println(item.getName());
                     items.add(item);
                 }
-
+                    */
                 long stop = System.nanoTime();
                 System.out.println((stop - start));
 
-        /*
+        
         items = Sorty.sortString(items, curSize);
 
         adapter.notifyDataSetChanged();
@@ -324,7 +325,7 @@ public class ListMain extends ActionBarActivity
         {
             list.add(k, items.get(k).getName());
             adapter.notifyDataSetChanged();
-        }*/
+        }
                 adapter.notifyDataSetChanged();
             }
         }).start();
