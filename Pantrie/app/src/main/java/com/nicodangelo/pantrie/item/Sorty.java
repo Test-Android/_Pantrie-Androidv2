@@ -7,14 +7,135 @@ import java.util.ArrayList;
 
 public class Sorty
 {
-    public static ArrayList<Item> sortString(ArrayList<Item> s, int size)
+    //this method will sort Items from A to Z
+	public static ArrayList<Item> sortAZ(ArrayList<Item> a)
+	{
+		for(int i = 0; i < a.size() - 1; i++)
+		{
+			int minIndex = i;
+			for(int j = i + 1; j < a.size(); j++)
+			{
+				if(a.get(j).getName().compareToIgnoreCase(a.get(minIndex).getName()) < 0)
+				{
+					minIndex = j;
+				}
+			}
+			//This switches the Two Items properly 
+			Item temp1 = a.get(minIndex);
+			Item temp2 = a.get(i);
+			a.set(minIndex, temp2) ;
+			a.set(i,temp1);
+		}
+		return a;
+	}
+	
+	//This method will sort Items from Z to A
+	public static ArrayList<Item> sortZA(ArrayList<Item> a)
+	{
+		for(int i = 0; i < a.size() - 1; i++)
+		{
+			int minIndex = i;
+			for(int j = i + 1; j < a.size(); j++)
+			{
+				if(a.get(j).getName().compareToIgnoreCase(a.get(minIndex).getName()) > 0)
+				{
+					minIndex = j;
+				}
+			}
+			Item temp1 = a.get(minIndex);
+			Item temp2 = a.get(i);
+			a.set(minIndex, temp2) ;
+			a.set(i,temp1);
+				
+		}
+		return a;
+	}
+	
+	//this method will sort Items from A to Z
+	public static ArrayList<Item> sortHL(ArrayList<Item> a)
+	{
+		for(int i = 0; i < a.size() - 1; i++)
+		{
+			int minIndex = i;
+			for(int j = i + 1; j < a.size(); j++)
+			{
+				if(a.get(j).getAmount() < a.get(minIndex).getAmount())
+				{
+					minIndex = j;
+				}
+			}
+			//This switches the Two Items properly 
+			Item temp1 = a.get(minIndex);
+			Item temp2 = a.get(i);
+			a.set(minIndex, temp2) ;
+			a.set(i,temp1);
+					
+		}
+		return a;
+	}
+		
+	//this method will sort Items from A to Z
+	public static ArrayList<Item> sortLH(ArrayList<Item> a)
+	{
+		for(int i = 0; i < a.size() - 1; i++)
+		{
+			int minIndex = i;
+			for(int j = i + 1; j < a.size(); j++)
+			{
+				if(a.get(j).getAmount() > a.get(minIndex).getAmount())
+				{
+					minIndex = j;
+				}
+			}
+			//This switches the Two Items properly 
+			Item temp1 = a.get(minIndex);
+			Item temp2 = a.get(i);
+			a.set(minIndex, temp2) ;
+			a.set(i,temp1);
+						
+		}
+		return a;
+	}
+	
+	//this method only returns the Items with that substring of the String given
+	//keeping in mind that this is why we need a separate arraylist for display and storage...
+	//because if a item does not begin with String b then it will no longer exist either...
+	public static ArrayList<Item> sortEquilString(ArrayList<Item> a, String b)
+	{
+		ArrayList<Item> temp = new ArrayList<Item>();
+		for(int i = 0; i < a.size(); i++)
+		{
+			if(a.get(i).getName().substring(0, b.length()).equalsIgnoreCase(b))
+			{
+				temp.add(a.get(i));
+			}			
+		}
+		return temp;
+	}
+		
+	//this method will find the Items that contain the String anywhere in The item name
+	public static ArrayList<Item> sortAnyString(ArrayList<Item> a, String b)
+	{
+		ArrayList<Item> temp = new ArrayList<Item>();
+		for(int i = 0; i < a.size(); i++)
+		{
+			if(a.get(i).getName().indexOf(b) != -1)
+			{
+				temp.add(a.get(i));
+			}			
+		}
+		return temp;
+	}
+}
+
+/*
+public static ArrayList<Item> sortString(ArrayList<Item> s, int size)
     {
-    /*
         String[] sort = new String[size];
         for(int k = 0; k < size; k++)
         {
             sort[k] = s.get(k);
-        }*/
+        }
         long start = System.nanoTime();
         for (int k = 0; k < size - 1; k++)
         {
@@ -33,11 +154,11 @@ public class Sorty
         System.out.println((stop - start));
         return s;
 
-/*        s.clear();
+        s.clear();
         for(int k = 0; k < size; k++)
         {
             s.add(sort[k]);
-        }*/
+        }
     }
     public static int compare(String one, String two)
     {
@@ -186,5 +307,4 @@ public class Sorty
             }
         }
         System.out.println();
-    }
-}
+    }*/
