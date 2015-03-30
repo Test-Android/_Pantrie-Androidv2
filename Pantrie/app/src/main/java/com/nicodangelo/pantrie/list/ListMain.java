@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
-import com.nicodangelo.pantrie.item.Sorty;
 import com.nicodangelo.pantrie.util.Settings;
 
 import java.io.File;
@@ -280,12 +279,12 @@ public class ListMain extends ActionBarActivity
                 System.out.println("start");
                 for (int k = 0; k < curSize - 1; k++)
                 {
-                    System.out.println("sort size now : " + sort.size());
+                    System.out.println("sort size now : " + items.size());
                     max = k;
                     System.out.println("Max = " + max);
                     for (int j = k + 1; j < curSize; j++)
                     {
-                        System.out.println("sort size now : " + sort.size());
+                        System.out.println("sort size now : " + items.size());
 /*
 *  So the compareTo method in java compares the entireity of one string to the other
 *  so while it works for smaller strings it won't for what we're trying to do
@@ -295,7 +294,7 @@ public class ListMain extends ActionBarActivity
 */
                         if(items.get(j).getName().trim().compareToIgnoreCase(items.get(max).getName().trim()) < 0)
                             max = j;
-                        System.out.println("sorting..." + max + " - " + sort.get(j).getName() + " with " + sort.get(max).getName());
+                        System.out.println("sorting..." + max + " - " + items.get(j).getName() + " with " + items.get(max).getName());
                     }
                     if(max != k)
                     {
@@ -318,7 +317,7 @@ public class ListMain extends ActionBarActivity
                 System.out.println((stop - start));
 
         
-        items = Sorty.sortString(items, curSize);
+//        items = Sorty.sortString(items, curSize);
 
         adapter.notifyDataSetChanged();
         for(int k = 0; k < curSize; k++)
