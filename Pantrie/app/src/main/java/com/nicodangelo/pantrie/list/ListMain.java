@@ -276,22 +276,33 @@ public class ListMain extends ActionBarActivity
                 }
 
                 long start = System.nanoTime();
+                int max;
                 System.out.println("start");
                 for (int k = 0; k < sort.size() - 1; k++)
                 {
                     System.out.println("sort size now : " + sort.size());
-                    int max = k;
+                    max = k;
                     System.out.println("Max = " + max);
                     for (int j = k + 1; j < sort.size(); j++)
                     {
                         System.out.println("sort size now : " + sort.size());
-                        if (sort.get(j).getName().compareTo(sort.get(max).getName()) < 0)
+/*
+*  So the compareTo method in java compares the entireity of one string to the other
+*  so while it works for smaller strings it won't for what we're trying to do
+* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+* The compare method that i created comapares the chars of the strings rather than the entire string added together and
+* subtracted from the other.
+*/
+                        if(Sorty.compare(sort.get(j).getName().trim(), sort.get(max).getName().trim()) < 0)
                             max = j;
                         System.out.println("sorting..." + max + " - " + sort.get(j).getName() + " with " + sort.get(max).getName());
                     }
-                    Item temp = sort.get(k);
-                    sort.add(k, sort.get(max));
-                    sort.add(max, temp);
+                    if(max != k)
+                    {
+                        Item temp = sort.get(k);
+                        sort.add(k, sort.get(max));
+                        sort.add(max, temp);
+                    }
                 }
                 items.clear();
                 System.out.println("finished sorting...");
