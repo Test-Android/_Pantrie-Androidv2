@@ -15,7 +15,6 @@ public class Sorty
         {
             sort[k] = s.get(k);
         }*/
-
         long start = System.nanoTime();
         for (int k = 0; k < size - 1; k++)
         {
