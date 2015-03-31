@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 //whole or partial???
 
@@ -328,12 +329,87 @@ public class ListMain extends ActionBarActivity
                 adapter.notifyDataSetChanged();
             }
         }).start(); */
-        items = Sorty.sortAZ(items);
-        for(int k = 0; k < items.size(); k++)
+        if(curSize != 0 && curSize != 1)
         {
-            list.set(k, items.get(k).getName());
+            br = new AlertDialog.Builder(this)
+                    .setTitle("Sort the list?")
+                    .setCancelable(false);
+            final Button az = new Button(ListMain.this);
+            az.setText("Sort a-z");
+            az.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ad.dismiss();
+                    items = Sorty.sortAZ(items);
+                    for(int k = 0; k < items.size(); k++)
+                    {
+                        list.set(k, items.get(k).getName());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            final Button za = new Button(ListMain.this);
+            za.setText("Sort z-a");
+            za.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ad.dismiss();
+                    items = Sorty.sortZA(items);
+                    for(int k = 0; k < items.size(); k++)
+                    {
+                        list.set(k, items.get(k).getName());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            final Button numUp = new Button(ListMain.this);
+            numUp.setText("Sort 1 2 3");
+            numUp.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ad.dismiss();
+                    items = Sorty.sortLH(items);
+                    for(int k = 0; k < items.size(); k++)
+                    {
+                        list.set(k, items.get(k).getName());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            final Button numDown = new Button(ListMain.this);
+            numDown.setText("Sort 3 2 1");
+            numDown.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ad.dismiss();
+                    items = Sorty.sortHL(items);
+                    for(int k = 0; k < items.size(); k++)
+                    {
+                        list.set(k, items.get(k).getName());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            LinearLayout lay = new LinearLayout(ListMain.this);
+            lay.setOrientation(LinearLayout.VERTICAL);
+            lay.addView(az);
+            lay.addView(za);
+            lay.addView(numUp);
+            lay.addView(numDown);
+            br.setView(lay);
         }
-        adapter.notifyDataSetChanged();
+        ad = br.create();
+        ad = br.show();
+
+
     }
 //WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 // Hell fucking yes it worked.
@@ -354,7 +430,7 @@ public class ListMain extends ActionBarActivity
         lay.addView(name);
         lay.addView(amount);
         br.setView(lay);
-        br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        br.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton)
             {
                 if (!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(amount.getText().toString()))
