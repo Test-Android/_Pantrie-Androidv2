@@ -53,6 +53,10 @@
             android:name=".game.ArrowGame"
             android:label="@string/title_activity_arrow_game" >
         </activity>
+        <activity
+            android:name=".main.LoadPantrie"
+            android:label="@string/title_activity_load_pantrie" >
+        </activity>
     </application>
 
 </manifest>
