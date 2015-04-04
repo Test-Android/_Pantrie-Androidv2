@@ -37,5 +37,6 @@
     <string name="title_activity_main_pantrie">MainPantrie</string>
     <string name="title_activity_list_main">ListMain</string>
     <string name="title_activity_arrow_game">ArrowGame</string>
+    <string name="title_activity_load_pantrie">LoadPantrie</string>
 
 </resources>

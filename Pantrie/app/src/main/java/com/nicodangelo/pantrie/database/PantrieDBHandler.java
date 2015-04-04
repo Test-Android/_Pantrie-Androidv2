@@ -1,17 +1,29 @@
 //@author Jake Cox
 package com.nicodangelo.pantrie.database;
 
-public class PantrieDBHandler
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.nicodangelo.pantrie.item.Item;
+
+public class PantrieDBHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "itemsDB.db";
     public static final String TABLE_ITEMS = "items";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_ITEMNAME = "itemname";
-    public static sinal String COLUMN_ITEMAMOUNT = "itemamount";
+    public static final String COLUMN_ITEMAMOUNT = "itemamount";
 
     //We need to pass database information along to superclass
+<<<<<<< HEAD
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
+=======
+    public PantrieDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
+>>>>>>> origin/master
     {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
@@ -22,7 +34,7 @@ public class PantrieDBHandler
         String query = "CREATE TABLE " + COLUMN_ITEMNAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_ITEMNAME + " TEXT, " +
-                COLUMN_ITEMAMOUNT + " TEXT "
+                COLUMN_ITEMAMOUNT + " TEXT " +
                 ");";
         db.execSQL(query);
     }
@@ -47,7 +59,7 @@ public class PantrieDBHandler
     public void deleteItem(String itemName)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String query = ("DELETE FROM "+ TABLE_ITEMS + " WHERE " + COLUMN_ITEMNAME + "='" + itemName + "' + ";");
+        String query = ("DELETE FROM "+ TABLE_ITEMS + " WHERE " + COLUMN_ITEMNAME + "=\"" + itemName + "\"" + ";");
         db.execSQL(query);
         System.out.println(query);
         System.out.println("this is the product " + COLUMN_ITEMNAME + "  " + itemName + "  " + COLUMN_ITEMAMOUNT);
