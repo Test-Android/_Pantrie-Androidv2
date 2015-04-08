@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.list.ListMain;
@@ -36,7 +37,7 @@ public class MainPantrie extends ActionBarActivity
             {
                 try
                 {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e)
                 {
                     e.printStackTrace();
@@ -49,5 +50,12 @@ public class MainPantrie extends ActionBarActivity
 
         Thread theThread = new Thread(r);
         theThread.start();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

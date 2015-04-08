@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.game.ArrowGame;
+import com.nicodangelo.pantrie.main.LoadPantrie;
+import com.nicodangelo.pantrie.main.MainPantrie;
 import com.parse.ParseUser;
 
 public class Settings extends ActionBarActivity {
@@ -55,11 +58,20 @@ public class Settings extends ActionBarActivity {
     {
         ParseUser.logOut();
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent i = new Intent(this, LoadPantrie.class);
+        startActivity(i);
     }
     public void startGame(View view)
     {
         Intent i = new Intent(this, ArrowGame.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
 

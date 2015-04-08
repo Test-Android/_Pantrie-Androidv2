@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.list.ListMain;
@@ -114,5 +115,12 @@ public class LoadPantrie extends ActionBarActivity
     {
         Intent i = new Intent(this,ForgotPassword.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
