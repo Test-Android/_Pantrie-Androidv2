@@ -1,8 +1,7 @@
+//@author Jett Kasper
+
 package com.nicodangelo.pantrie.list;
 
-/**
- * Created by Jetts on 3/28/2015.
- */
 import com.nicodangelo.pantrie.item.Item;
 
 import java.util.ArrayList;
