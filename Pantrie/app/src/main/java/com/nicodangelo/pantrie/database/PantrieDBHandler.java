@@ -19,11 +19,8 @@ public class PantrieDBHandler extends SQLiteOpenHelper
     public static final String COLUMN_ITEMAMOUNT = "itemamount";
 
     //We need to pass database information along to superclass
-<<<<<<< HEAD
-    public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
-=======
+
     public PantrieDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
->>>>>>> origin/master
     {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
