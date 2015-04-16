@@ -259,10 +259,10 @@ public class ListMain extends ActionBarActivity
         }
 
     }
-/*
+
     public void changeSort(View view)
     {
-       new Thread(new Runnable()
+/*        new Thread(new Runnable()
         {
             @Override
             public void run()
@@ -405,10 +405,10 @@ public class ListMain extends ActionBarActivity
             lay.addView(numUp);
             lay.addView(numDown);
             br.setView(lay);
-        }
-        ad = br.create();
-        ad = br.show();
 
+            ad = br.create();
+            ad = br.show();
+        }
 
     }
 //WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
