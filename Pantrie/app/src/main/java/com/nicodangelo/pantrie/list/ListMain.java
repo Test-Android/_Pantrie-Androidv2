@@ -47,20 +47,6 @@ public class ListMain extends ActionBarActivity
     @Override
     public void onCreate(Bundle bundle)
     {
-        /*Item item1 = new Item("pickle",2);
-        items.add(item1);
-        Item item2 = new Item("apple",2);
-        items.add(item2);
-        Item item3 = new Item("grape",2);
-        items.add(item3);
-        Item item4 = new Item("cheese",2);
-        items.add(item4);
-        Item item5 = new Item("pear",2);
-        items.add(item5);
-
-
-        curSize = 5;*/
-
         super.onCreate(bundle);
         setContentView(R.layout.activity_list_main);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
