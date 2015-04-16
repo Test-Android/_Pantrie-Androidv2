@@ -259,10 +259,10 @@ public class ListMain extends ActionBarActivity
         }
 
     }
-
+/*
     public void changeSort(View view)
     {
-/*        new Thread(new Runnable()
+       new Thread(new Runnable()
         {
             @Override
             public void run()
