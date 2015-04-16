@@ -31,13 +31,13 @@ public class LoadPantrie extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
 
-        /*ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             Intent i = new Intent(this, ListMain.class);
             startActivity(i);
         } else {
-            // show the signup or login screen
-        }*/
+
+        }
     }
 
 

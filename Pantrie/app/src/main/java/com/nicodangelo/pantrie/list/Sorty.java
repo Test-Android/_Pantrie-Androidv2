@@ -52,7 +52,7 @@ public class Sorty
 		return a;
 	}
 	
-	//this method will sort Items from A to Z
+	//this method will sort Items from high to low
 	public static ArrayList<Item> sortHL(ArrayList<Item> a)
 	{
 		for(int i = 0; i < a.size() - 1; i++)
@@ -60,7 +60,7 @@ public class Sorty
 			int minIndex = i;
 			for(int j = i + 1; j < a.size(); j++)
 			{
-				if(a.get(j).getAmount() < a.get(minIndex).getAmount())
+				if(a.get(j).getAmount() > a.get(minIndex).getAmount())
 				{
 					minIndex = j;
 				}
@@ -75,7 +75,7 @@ public class Sorty
 		return a;
 	}
 		
-	//this method will sort Items from A to Z
+	//this method will sort Items from low to high
 	public static ArrayList<Item> sortLH(ArrayList<Item> a)
 	{
 		for(int i = 0; i < a.size() - 1; i++)
@@ -83,7 +83,7 @@ public class Sorty
 			int minIndex = i;
 			for(int j = i + 1; j < a.size(); j++)
 			{
-				if(a.get(j).getAmount() > a.get(minIndex).getAmount())
+				if(a.get(j).getAmount() < a.get(minIndex).getAmount())
 				{
 					minIndex = j;
 				}

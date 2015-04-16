@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.list.ListMain;
 
 public class ConvertMass extends ActionBarActivity
 {
@@ -74,8 +75,8 @@ public class ConvertMass extends ActionBarActivity
             toast.show();
             return;
         }
-        layout1.removeAllViews();
-        layout2.removeAllViews();
+        //layout1.removeAllViews();
+        //layout2.removeAllViews();
         output = (TextView) findViewById(R.id.output);
 
         inputNum = Double.parseDouble(input.getText().toString());
@@ -110,17 +111,6 @@ public class ConvertMass extends ActionBarActivity
             else if(index1.equals("pounds") && index2.equals("kilograms")) {outputNum = inputNum * 0.453592;}
             else if(index1.equals("grams") && index2.equals("kilograms")) {outputNum = inputNum * 0.001;}
             else if(index1.equals("milligrams") && index2.equals("kilograms")) {outputNum = inputNum * 0.000001;}
-
-
-            //LENGTH
-            //millimeter
-            //centimeter
-            //meter
-            //inch
-            //foot
-            //yard
-            //mile
-            //kilometer
 
             output.setText(Double.toString(outputNum));
         }
@@ -341,6 +331,7 @@ public class ConvertMass extends ActionBarActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_convert_mass, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -353,17 +344,18 @@ public class ConvertMass extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if(id == R.id.action_settings)
+        {
+            Intent i = new Intent(ConvertMass.this, Settings.class);
+            startActivity(i);
+            return true;
+        }
         if (id == R.id.volume)
         {
             Intent i = new Intent(ConvertMass.this, ConvertVolume.class);
             startActivity(i);
             return true;
         }
-        else if(id == R.id.length)
-        {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

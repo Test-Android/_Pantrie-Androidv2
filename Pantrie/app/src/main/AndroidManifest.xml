@@ -9,7 +9,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -18,15 +18,18 @@
 
         <activity
             android:name=".util.ConvertVolume"
-            android:label="@string/title_activity_convert_volume" >
+            android:label="@string/title_activity_convert_volume"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".util.ConvertMass"
-            android:label="@string/title_activity_convert_mass" >
+            android:label="@string/title_activity_convert_mass"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".main.NewLogIn"
-            android:label="@string/title_activity_new_log_in" >
+            android:label="@string/title_activity_new_log_in"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".util.Settings"
@@ -47,7 +50,8 @@
         </activity>
         <activity
             android:name=".list.ListMain"
-            android:label="@string/title_activity_list_main" >
+            android:label="@string/title_activity_list_main"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".game.ArrowGame"
