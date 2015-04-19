@@ -11,5 +11,5 @@
     <item android:id="@+id/length"
         android:title="length"
         android:icon="@mipmap/ic_launcher"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 </menu>
