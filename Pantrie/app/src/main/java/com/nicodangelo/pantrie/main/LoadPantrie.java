@@ -33,7 +33,7 @@ public class LoadPantrie extends ActionBarActivity
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            Intent i = new Intent(this, ListMain.class);
+            Intent i = new Intent(this, Home.class);
             startActivity(i);
         } else {
 
@@ -77,7 +77,7 @@ public class LoadPantrie extends ActionBarActivity
 
         if(username.equalsIgnoreCase("pantrie") && password.equalsIgnoreCase("pantrie"))
         {
-            Intent i = new Intent(this, ListMain.class);
+            Intent i = new Intent(this, Home.class);
             startActivity(i);
         }
 
