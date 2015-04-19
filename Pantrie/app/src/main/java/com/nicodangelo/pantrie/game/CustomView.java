@@ -1,6 +1,7 @@
 package com.nicodangelo.pantrie.game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.util.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,14 +93,18 @@ public class CustomView extends SurfaceView
     }
     public boolean onTouchEvent(MotionEvent event)
     {
-        if (System.currentTimeMillis() - lastClick > 300) {
+        if (System.currentTimeMillis() - lastClick > 300)
+        {
             lastClick = System.currentTimeMillis();
             float x = event.getX();
             float y = event.getY();
-            synchronized (getHolder()) {
-                for (int i = sprites.size() - 1; i >= 0; i--) {
+            synchronized (getHolder())
+            {
+                for (int i = sprites.size() - 1; i >= 0; i--)
+                {
                     Sprite sprite = sprites.get(i);
-                    if (sprite.isCollison(x, y)) {
+                    if (sprite.isCollison(x, y))
+                    {
                         sprites.remove(sprite);
                         temps.add(new TempSprite(temps, this, x, y, blood));
                         break;
