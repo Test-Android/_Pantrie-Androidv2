@@ -416,63 +416,56 @@ public class ListMain extends ActionBarActivity
         lay.addView(name);
         lay.addView(amount);
         br.setView(lay);
-        br.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+        br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton)
             {
-                if (!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(amount.getText().toString()))
-                {
-                    Item i = new Item(name.getText().toString());
-                    items.add(i);
-                    if (!TextUtils.isEmpty(amount.getText().toString()))
-                        items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
-                    list.add(items.get(curSize).getName());
-                    adapter.notifyDataSetChanged();
 
-                    ad.dismiss();
+                Item i = new Item(name.getText().toString());
+                items.add(i);
+                if (!TextUtils.isEmpty(amount.getText().toString()))
+                    items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
+                list.add(items.get(curSize).getName());
+                adapter.notifyDataSetChanged();
 
-                    br = new AlertDialog.Builder(ListMain.this);
-                    br.setTitle("Extra Info: Optional");
-                    final EditText setLow = new EditText(ListMain.this);
-                    setLow.setHint("Set Low Amount Warning");
-                    final EditText type = new EditText(ListMain.this);
-                    type.setHint("Solid, or Liquid");
-                    final EditText measurement = new EditText(ListMain.this);
-                    measurement.setHint("Set Measurement Type");
+                ad.dismiss();
 
-                    setLow.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    type.setInputType(InputType.TYPE_CLASS_TEXT);
-                    measurement.setInputType(InputType.TYPE_CLASS_TEXT);
+                br = new AlertDialog.Builder(ListMain.this);
+                br.setTitle("Extra Info: Optional");
+                final EditText setLow = new EditText(ListMain.this);
+                setLow.setHint("Set Low Amount Warning");
+                final EditText type = new EditText(ListMain.this);
+                type.setHint("Solid, or Liquid");
+                final EditText measurement = new EditText(ListMain.this);
+                measurement.setHint("Set Measurement Type");
 
-                    LinearLayout lay = new LinearLayout(ListMain.this);
-                    lay.setOrientation(LinearLayout.VERTICAL);
-                    lay.addView(setLow);
-                    lay.addView(type);
-                    lay.addView(measurement);
-                    br.setView(lay)
-                            .setPositiveButton("Okay", new DialogInterface.OnClickListener()
+                setLow.setInputType(InputType.TYPE_CLASS_NUMBER);
+                type.setInputType(InputType.TYPE_CLASS_TEXT);
+                measurement.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                LinearLayout lay = new LinearLayout(ListMain.this);
+                lay.setOrientation(LinearLayout.VERTICAL);
+                lay.addView(setLow);
+                lay.addView(type);
+                lay.addView(measurement);
+                br.setView(lay)
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
                             {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    if (!TextUtils.isEmpty(setLow.getText().toString()))
-                                        items.get(curSize).setLow(Integer.parseInt(setLow.getText()
-                                                .toString()));
-                                    if (!TextUtils.isEmpty(type.getText().toString()))
-                                        items.get(curSize).setType(type.getText().toString());
-                                    if (!TextUtils.isEmpty(measurement.getText().toString()))
-                                        items.get(curSize).setMeasurement(measurement.getText().toString());
-                                    curSize++;
+                                if (!TextUtils.isEmpty(setLow.getText().toString()))
+                                    items.get(curSize).setLow(Integer.parseInt(setLow.getText()
+                                            .toString()));
+                                if (!TextUtils.isEmpty(type.getText().toString()))
+                                    items.get(curSize).setType(type.getText().toString());
+                                if (!TextUtils.isEmpty(measurement.getText().toString()))
+                                    items.get(curSize).setType(measurement.getText().toString());
+                                curSize++;
 
-                                }
-                            });
-                    ad = br.create();
-                    ad = br.show();
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Please fill all the required fields...", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                            }
+                        });
+                ad = br.create();
+                ad = br.show();
 
             }
         });
