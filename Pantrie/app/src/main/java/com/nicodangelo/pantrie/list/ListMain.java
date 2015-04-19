@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.database.DBHandler;
-import com.nicodangelo.pantrie.database.PantrieDBHandler;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.item.ListAdapter;
