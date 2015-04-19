@@ -18,23 +18,23 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.database.DBHandler;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
-import com.nicodangelo.pantrie.item.ListAdapter;
 import com.nicodangelo.pantrie.util.Settings;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 //whole or partial???
 
 public class ListMain extends ActionBarActivity
 {
     ArrayList<String> list = new ArrayList<String>();
-    ListAdapter adapter;
     ItemController itemList = new ItemController();
     int curSize = 0;
     ListView lv;
@@ -42,6 +42,7 @@ public class ListMain extends ActionBarActivity
     AlertDialog ad;
     AlertDialog.Builder br;
     DBHandler db;
+    SimpleCursorAdapter adapter;
 
     @Override
     public void onCreate(Bundle bundle)
@@ -51,9 +52,8 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         db = new DBHandler(this);
-        adapter = new ListAdapter(this, list);
+        updateListView();
         lv = (ListView) findViewById(R.id.listView);
-        lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -347,64 +347,31 @@ public class ListMain extends ActionBarActivity
             lay.addView(name);
             lay.addView(amount);
             br.setView(lay);
-            br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+            {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
 
                     Item i = new Item(name.getText().toString());
                     if (!TextUtils.isEmpty(amount.getText().toString()))
                         i.setAmount(Integer.parseInt(amount.getText().toString()));
-//                    db.addItem(i);
-//                    db.getItemAmount(i.getName());
-//                    db.databaseToString(list);
-                    adapter.notifyDataSetChanged();
-
+                    db.insertRow(i.getName(),i.getAmount(),0);
+                    updateListView();
                     ad.dismiss();
-
-                    br = new AlertDialog.Builder(ListMain.this);
-                    br.setTitle("Extra Info: Optional");
-                    final EditText setLow = new EditText(ListMain.this);
-                    setLow.setHint("Set Low Amount Warning");
-                    final EditText type = new EditText(ListMain.this);
-                    type.setHint("Solid, or Liquid");
-                    final EditText measurement = new EditText(ListMain.this);
-                    measurement.setHint("Set Measurement Type");
-
-                    setLow.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    type.setInputType(InputType.TYPE_CLASS_TEXT);
-                    measurement.setInputType(InputType.TYPE_CLASS_TEXT);
-
-/*                    LinearLayout lay = new LinearLayout(ListMain.this);
-                    lay.setOrientation(LinearLayout.VERTICAL);
-                    lay.addView(setLow);
-                    lay.addView(type);
-                    lay.addView(measurement);
-                    br.setView(lay)
-                            .setPositiveButton("Okay", new DialogInterface.OnClickListener()
-                            {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    if (!TextUtils.isEmpty(setLow.getText().toString()))
-                                        items.get(curSize).setLow(Integer.parseInt(setLow.getText()
-                                                .toString()));
-                                    if (!TextUtils.isEmpty(type.getText().toString()))
-                                        items.get(curSize).setType(type.getText().toString());
-                                    if (!TextUtils.isEmpty(measurement.getText().toString()))
-                                        items.get(curSize).setType(measurement.getText().toString());
-                                    curSize++;
-
-                                }
-                            });
-                    ad = br.create();
-                    ad = br.show(); */
-
-                }
+            }
             });
             ad = br.create();
             ad = br.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void updateListView()
+    {
+        Cursor cursor = db.getAllRows();
+        String[] fromFieldNames = new String[]{db.KEY_NAME,db.KEY_AMOUNT};
+        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView};
+        adapter = new SimpleCursorAdapter(getBaseContext(), R.layout.activity_list_adapter, cursor, fromFieldNames, viewIds, 0);
+        lv.setAdapter(adapter);
     }
 }
 
