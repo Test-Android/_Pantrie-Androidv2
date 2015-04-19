@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.list.ListMain;
+import com.nicodangelo.pantrie.util.Settings;
 import com.parse.ParseUser;
 
 public class Home extends Activity
@@ -33,7 +34,7 @@ public class Home extends Activity
 
     public void goToSettings(View view)
     {
-        Intent i = new Intent(this, Home.class);
+        Intent i = new Intent(this, Settings.class);
         startActivity(i);
     }
 
