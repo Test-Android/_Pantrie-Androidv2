@@ -15,8 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/changeStyle"
-        android:layout_above="@+id/btnAdd"/>
+        android:layout_below="@+id/changeStyle" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,16 +35,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Item"
-        android:id="@+id/btnAdd"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="editItemsClick"/>
 
 </RelativeLayout>
 
