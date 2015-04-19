@@ -3,6 +3,10 @@ package com.nicodangelo.pantrie.list;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.database.PantrieDBHandler;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.item.ListAdapter;
@@ -36,7 +41,6 @@ import java.util.List;
 public class ListMain extends ActionBarActivity
 {
     ArrayList<String> list = new ArrayList<String>();
-    ArrayList<Item> items = new ArrayList<Item>();
     ListAdapter adapter;
     ItemController itemList = new ItemController();
     int curSize = 0;
@@ -44,6 +48,7 @@ public class ListMain extends ActionBarActivity
     Boolean paused = false;
     AlertDialog ad;
     AlertDialog.Builder br;
+    PantrieDBHandler db;
 
     @Override
     public void onCreate(Bundle bundle)
@@ -53,7 +58,13 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         adapter = new ListAdapter(this, list);
-
+        db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
+            @Override
+            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
+                return null;
+            }
+        }, 1);
+        db.databaseToString(list);
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,7 +83,7 @@ public class ListMain extends ActionBarActivity
                                     public void onClick(DialogInterface dialog, int which)
                                     {
                                         br = new AlertDialog.Builder(ListMain.this);
-                                        br.setTitle(items.get(position).getName());
+                                        br.setTitle(list.get(position));
 
                                         final EditText one = new EditText(ListMain.this);
                                         one.setHint("Set Amount");
@@ -85,7 +96,7 @@ public class ListMain extends ActionBarActivity
                                         LinearLayout lay = new LinearLayout(ListMain.this);
                                         lay.setOrientation(LinearLayout.VERTICAL);
                                         lay.addView(one);
-                                        lay.addView(two);
+//                                        lay.addView(two);
                                         br.setView(lay);
                                         br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                                         {
@@ -93,11 +104,10 @@ public class ListMain extends ActionBarActivity
                                             {
                                                 if (!TextUtils.isEmpty(one.getText().toString()))
                                                 {
-                                                    items.get(a).setAmount(Integer.parseInt(one.getText().toString()));
-                                                    list.set(a, items.get(a).getName());
+                                                    db.setItemAmount(list.get(position), Integer.parseInt(one.getText().toString()));
                                                 }
-                                                if (!TextUtils.isEmpty(two.getText().toString()))
-                                                    items.get(a).setLow(Integer.parseInt(two.getText().toString()));
+//                                                if (!TextUtils.isEmpty(two.getText().toString()))
+//                                                    items.get(a).setLow(Integer.parseInt(two.getText().toString()));
                                                 adapter.notifyDataSetChanged();
 
                                             }
@@ -112,8 +122,8 @@ public class ListMain extends ActionBarActivity
                                         br.create();
                                         br.show();
                                     }
-                                })
-                                .setNegativeButton("Get Info", new DialogInterface.OnClickListener() {
+                                });
+/*                                .setNegativeButton("Get Info", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         ad.dismiss();
@@ -126,7 +136,7 @@ public class ListMain extends ActionBarActivity
                                         final TextView mes = new TextView(ListMain.this);
 
                                         name.setText(items.get(a).getName());
-                                        amount.setText("Amount: " + items.get(a).getAmount());
+                                       amount.setText("Amount: " + items.get(a).getAmount());
                                         lowAmount.setText("Low Amount: " + items.get(a).getLow());
                                         type.setText("Item Type: " + items.get(a).getType());
                                         mes.setText("Measurement Type: " + items.get(a).getMeasurment());
@@ -150,26 +160,18 @@ public class ListMain extends ActionBarActivity
 
                                         adapter.notifyDataSetChanged();
                                     }
-                                });
+                                }); */
                         ab.create();
                         ab.show();
                     }
                 }
             }
         });
-        if(getInfo())
-        {
-            for(int k = 0; k < curSize; k++)
-            {
-                list.add("Name: " + items.get(k).getName() + " Amount: " + items.get(k).getAmount());
-                adapter.notifyDataSetChanged();
-            }
-        }
-
     }
 
     public void changeSort(View view)
     {
+        String no = "Fuck ya chicken strips";
 /*        new Thread(new Runnable()
         {
             @Override
@@ -237,7 +239,7 @@ public class ListMain extends ActionBarActivity
                 adapter.notifyDataSetChanged();
             }
         }).start(); */
-        if(curSize != 0 && curSize != 1)
+/*        if(curSize != 0 && curSize != 1)
         {
             br = new AlertDialog.Builder(this)
                     .setTitle("Sort the list?")
@@ -250,11 +252,7 @@ public class ListMain extends ActionBarActivity
                 public void onClick(View v)
                 {
                     ad.dismiss();
-                    items = Sorty.sortAZ(items);
-                    for(int k = 0; k < items.size(); k++)
-                    {
-                        list.set(k, items.get(k).getName());
-                    }
+                    list = Sorty.sortAZ(list);
                     adapter.notifyDataSetChanged();
                 }
             });
@@ -273,8 +271,8 @@ public class ListMain extends ActionBarActivity
                     }
                     adapter.notifyDataSetChanged();
                 }
-            });
-            final Button numUp = new Button(ListMain.this);
+            }); */
+/*            final Button numUp = new Button(ListMain.this);
             numUp.setText("Sort 1 2 3");
             numUp.setOnClickListener(new View.OnClickListener()
             {
@@ -315,9 +313,8 @@ public class ListMain extends ActionBarActivity
             br.setView(lay);
 
             ad = br.create();
-            ad = br.show();
-        }
-
+            ad = br.show(); */
+//        }
     }
 //WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 // Hell fucking yes it worked.
@@ -368,10 +365,10 @@ public class ListMain extends ActionBarActivity
                 {
 
                     Item i = new Item(name.getText().toString());
-                    items.add(i);
                     if (!TextUtils.isEmpty(amount.getText().toString()))
-                        items.get(curSize).setAmount(Integer.parseInt(amount.getText().toString()));
-                    list.add(items.get(curSize).getName());
+                        i.setAmount(Integer.parseInt(amount.getText().toString()));
+                    db.addItem(i);
+                    db.databaseToString(list);
                     adapter.notifyDataSetChanged();
 
                     ad.dismiss();
@@ -389,7 +386,7 @@ public class ListMain extends ActionBarActivity
                     type.setInputType(InputType.TYPE_CLASS_TEXT);
                     measurement.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                    LinearLayout lay = new LinearLayout(ListMain.this);
+/*                    LinearLayout lay = new LinearLayout(ListMain.this);
                     lay.setOrientation(LinearLayout.VERTICAL);
                     lay.addView(setLow);
                     lay.addView(type);
@@ -412,7 +409,7 @@ public class ListMain extends ActionBarActivity
                                 }
                             });
                     ad = br.create();
-                    ad = br.show();
+                    ad = br.show(); */
 
                 }
             });
@@ -421,36 +418,6 @@ public class ListMain extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-    public boolean getInfo()
-    {
-        String state = "";
-        File s = getCacheDir();
-        try
-        {
-            FileInputStream a = new FileInputStream(s);
-            int g = 0;
-            while((g = a.read()) != -1)
-                state = state + ((char)g);
-            a.close();
-            if(state.equals("true"))
-            {
-                FileOutputStream fi = new FileOutputStream(s);
-                fi.write("false".getBytes());
-                fi.close();
-                return true;
-            }
-            else
-                return false;
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-
-    }
-
     @Override
     public void onBackPressed()
     {
