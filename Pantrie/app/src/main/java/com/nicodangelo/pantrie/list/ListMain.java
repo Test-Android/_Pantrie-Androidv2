@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.database.DBHandler;
+import com.nicodangelo.pantrie.database.PantrieDBHandler;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.item.ListAdapter;
@@ -51,12 +52,9 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         adapter = new ListAdapter(this, list);
-<<<<<<< HEAD
         db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory()
         {
-=======
         db = new DBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
->>>>>>> origin/master
             @Override
             public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query)
             {
