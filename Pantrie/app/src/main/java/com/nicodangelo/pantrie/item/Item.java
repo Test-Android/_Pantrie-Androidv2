@@ -1,8 +1,5 @@
 package com.nicodangelo.pantrie.item;
 
-/**
- * Created by Jetts on 3/28/2015.
- */
 public class Item
 {
     private String itemName;
