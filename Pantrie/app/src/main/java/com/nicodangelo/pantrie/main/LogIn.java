@@ -97,6 +97,7 @@ public class LogIn extends ActionBarActivity
                     usernameText.setText("");
                     passwordText.setText("");
                     Toast toast = Toast.makeText(getApplicationContext(), "Username or Password Incorrect", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
