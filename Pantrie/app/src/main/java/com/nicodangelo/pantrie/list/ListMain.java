@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
+import com.nicodangelo.pantrie.item.ListAdapter;
 import com.nicodangelo.pantrie.util.Settings;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class ListMain extends ActionBarActivity
 {
     ArrayList<String> list = new ArrayList<String>();
     ArrayList<Item> items = new ArrayList<Item>();
-    ArrayAdapter<String> adapter;
+    ListAdapter adapter;
     ItemController itemList = new ItemController();
     int curSize = 0;
     ListView lv;
@@ -53,7 +54,7 @@ public class ListMain extends ActionBarActivity
         actionBar.setTitle("List");
 
         Button btn = (Button) findViewById(R.id.btnAdd);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        adapter = new ListAdapter(this, list);
 
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(adapter);
@@ -114,11 +115,9 @@ public class ListMain extends ActionBarActivity
                                         br.show();
                                     }
                                 })
-                                .setNegativeButton("Get Info", new DialogInterface.OnClickListener()
-                                {
+                                .setNegativeButton("Get Info", new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         ad.dismiss();
                                         br = new AlertDialog.Builder(ListMain.this)
                                                 .setTitle("Info");
@@ -142,11 +141,9 @@ public class ListMain extends ActionBarActivity
                                         lay.addView(type);
                                         lay.addView(mes);
                                         br.setView(lay)
-                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener()
-                                                {
+                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                                     @Override
-                                                    public void onClick(DialogInterface dialog, int which)
-                                                    {
+                                                    public void onClick(DialogInterface dialog, int which) {
                                                         ad.dismiss();
                                                     }
                                                 });
