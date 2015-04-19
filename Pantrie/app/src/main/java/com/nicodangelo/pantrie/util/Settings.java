@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.game.ArrowGame;
+import com.nicodangelo.pantrie.list.ListMain;
 import com.nicodangelo.pantrie.main.LoadPantrie;
 import com.nicodangelo.pantrie.main.MainPantrie;
 import com.parse.ParseUser;
@@ -72,6 +73,12 @@ public class Settings extends ActionBarActivity {
     {
         Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void goBack(View view)
+    {
+        Intent i = new Intent(this, ListMain.class);
+        startActivity(i);
     }
 }
 
