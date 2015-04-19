@@ -368,6 +368,7 @@ public class ListMain extends ActionBarActivity
                     if (!TextUtils.isEmpty(amount.getText().toString()))
                         i.setAmount(Integer.parseInt(amount.getText().toString()));
                     db.addItem(i);
+                    db.getItemAmount(i.getName());
                     db.databaseToString(list);
                     adapter.notifyDataSetChanged();
 

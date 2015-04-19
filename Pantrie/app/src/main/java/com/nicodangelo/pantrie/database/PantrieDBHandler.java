@@ -46,7 +46,8 @@ public class PantrieDBHandler extends SQLiteOpenHelper
     }
 
     //Add a new row to the database
-    public void addItem(Item item){
+    public void addItem(Item item)
+    {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ITEMNAME, item.getName());
         SQLiteDatabase db = getWritableDatabase();
@@ -99,10 +100,11 @@ public class PantrieDBHandler extends SQLiteOpenHelper
         int amount = 0;
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT" +  COLUMN_ITEMNAME + "FROM " + TABLE_ITEMS + " WHERE itemname='" + itemName + "';";
+        String query = "SELECT " +  COLUMN_ITEMAMOUNT + " FROM " + TABLE_ITEMS + " WHERE itemname='" + itemName + "';";
 
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
         amount = Integer.parseInt(c.getString(c.getColumnIndex("itemamount")));
         db.close();
         c.close();
