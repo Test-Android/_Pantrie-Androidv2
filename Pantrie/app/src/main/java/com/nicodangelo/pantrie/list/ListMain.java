@@ -52,8 +52,6 @@ public class ListMain extends ActionBarActivity
         setContentView(R.layout.activity_list_main);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
-
-        Button btn = (Button) findViewById(R.id.btnAdd);
         adapter = new ListAdapter(this, list);
 
         lv = (ListView) findViewById(R.id.listView);
