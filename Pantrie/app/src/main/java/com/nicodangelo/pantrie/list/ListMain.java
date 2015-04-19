@@ -15,26 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
-import com.nicodangelo.pantrie.database.PantrieDBHandler;
+import com.nicodangelo.pantrie.database.DBHandler;
 import com.nicodangelo.pantrie.item.Item;
 import com.nicodangelo.pantrie.item.ItemController;
 import com.nicodangelo.pantrie.item.ListAdapter;
 import com.nicodangelo.pantrie.util.Settings;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 //whole or partial???
 
@@ -48,7 +41,7 @@ public class ListMain extends ActionBarActivity
     Boolean paused = false;
     AlertDialog ad;
     AlertDialog.Builder br;
-    PantrieDBHandler db;
+    DBHandler db;
 
     @Override
     public void onCreate(Bundle bundle)
@@ -58,7 +51,7 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         adapter = new ListAdapter(this, list);
-        db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
+        db = new DBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
             @Override
             public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
                 return null;
