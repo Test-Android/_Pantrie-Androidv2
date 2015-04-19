@@ -3,17 +3,10 @@ package com.nicodangelo.pantrie.main;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
-import com.nicodangelo.pantrie.list.ListMain;
-import com.parse.LogInCallback;
 import com.parse.Parse;
-import com.parse.ParseUser;
 
 public class MainPantrie extends ActionBarActivity
 {
@@ -43,7 +36,7 @@ public class MainPantrie extends ActionBarActivity
                     e.printStackTrace();
                 }
 
-                Intent i = new Intent(MainPantrie.this, LoadPantrie.class);
+                Intent i = new Intent(MainPantrie.this, LogIn.class);
                 startActivity(i);
             }
         };

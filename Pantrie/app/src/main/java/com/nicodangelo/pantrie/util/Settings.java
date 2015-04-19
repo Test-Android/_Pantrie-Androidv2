@@ -1,6 +1,5 @@
 package com.nicodangelo.pantrie.util;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,10 +10,8 @@ import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.game.ArrowGame;
-import com.nicodangelo.pantrie.list.ListMain;
 import com.nicodangelo.pantrie.main.Home;
-import com.nicodangelo.pantrie.main.LoadPantrie;
-import com.nicodangelo.pantrie.main.MainPantrie;
+import com.nicodangelo.pantrie.main.LogIn;
 import com.parse.ParseUser;
 
 public class Settings extends ActionBarActivity {
@@ -55,7 +52,7 @@ public class Settings extends ActionBarActivity {
     public void signOut(View view) {
         ParseUser.logOut();
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-        Intent i = new Intent(this, LoadPantrie.class);
+        Intent i = new Intent(this, LogIn.class);
         startActivity(i);
     }
 
