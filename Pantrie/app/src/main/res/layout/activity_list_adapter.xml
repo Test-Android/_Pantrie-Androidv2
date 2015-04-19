@@ -23,10 +23,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/itemAmountTextView"
-        android:layout_alignBaseline="@+id/itemNameTextView"
         android:layout_alignBottom="@+id/itemNameTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignLeft="@+id/itemLowAmountTextView"
+        android:layout_alignStart="@+id/itemLowAmountTextView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,7 +52,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/itemLowAmountTextView"
-        android:layout_alignTop="@+id/lowAmountTextView"
-        android:layout_alignLeft="@+id/itemAmountTextView"
-        android:layout_alignStart="@+id/itemAmountTextView"/>
+        android:layout_alignBottom="@+id/lowAmountTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

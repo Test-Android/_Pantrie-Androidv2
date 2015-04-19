@@ -3,6 +3,7 @@ package com.nicodangelo.pantrie.list;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -31,14 +32,13 @@ import java.util.logging.Handler;
 public class ListMain extends ActionBarActivity
 {
     ArrayList<String> list = new ArrayList<String>();
-    ItemController itemList = new ItemController();
     int curSize = 0;
     ListView lv;
-    Boolean paused = false;
     AlertDialog ad;
     AlertDialog.Builder br;
     DBHandler db;
     SimpleCursorAdapter adapter;
+    Cursor cursor;
 
     @Override
     public void onCreate(Bundle bundle)
@@ -48,16 +48,18 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         db = new DBHandler(this);
-        updateListView();
+        db.open();
         lv = (ListView) findViewById(R.id.listView);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            System.out.print("asu;dfhasldufhasdlufhalsifhuda");
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id)
+            {
                 for(int k = 0; k < curSize; k++)
                 {
                     if(k == position)
                     {
-                        final int a = k;
                         AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
                                 .setTitle("Edit Pantrie?")
                                 .setPositiveButton("Edit Item", new DialogInterface.OnClickListener()
@@ -106,206 +108,23 @@ public class ListMain extends ActionBarActivity
                                         br.show();
                                     }
                                 });
-/*                                .setNegativeButton("Get Info", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ad.dismiss();
-                                        br = new AlertDialog.Builder(ListMain.this)
-                                                .setTitle("Info");
-                                        final TextView name = new TextView(ListMain.this);
-                                        final TextView amount = new TextView(ListMain.this);
-                                        final TextView lowAmount = new TextView(ListMain.this);
-                                        final TextView type = new TextView(ListMain.this);
-                                        final TextView mes = new TextView(ListMain.this);
-
-                                        name.setText(items.get(a).getName());
-                                       amount.setText("Amount: " + items.get(a).getAmount());
-                                        lowAmount.setText("Low Amount: " + items.get(a).getLow());
-                                        type.setText("Item Type: " + items.get(a).getType());
-                                        mes.setText("Measurement Type: " + items.get(a).getMeasurment());
-
-                                        LinearLayout lay = new LinearLayout(ListMain.this);
-                                        lay.setOrientation(LinearLayout.VERTICAL);
-                                        lay.addView(name);
-                                        lay.addView(amount);
-                                        lay.addView(lowAmount);
-                                        lay.addView(type);
-                                        lay.addView(mes);
-                                        br.setView(lay)
-                                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        ad.dismiss();
-                                                    }
-                                                });
-                                        ad = br.create();
-                                        ad = br.show();
-
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }); */
                         ab.create();
                         ab.show();
                     }
                 }
             }
         });
+        updateListView();
     }
 
     public void changeSort(View view)
     {
         String no = "Fuck ya chicken strips";
-/*        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                System.out.println("Thread Started");
-              ArrayList<Item> sort = new ArrayList<Item>();
-                for(int k = 0; k < items.size(); k++)
-                {
-                    sort.add(items.get(k));
-                    System.out.println(sort.get(k).getName());
-                }
-
-                long start = System.nanoTime();
-                int max;
-                System.out.println("start");
-                for (int k = 0; k < curSize - 1; k++)
-                {
-                    System.out.println("sort size now : " + items.size());
-                    max = k;
-                    System.out.println("Max = " + max);
-                    for (int j = k + 1; j < curSize; j++)
-                    {
-                        System.out.println("sort size now : " + items.size());
-/*
-*  So the compareTo method in java compares the entireity of one string to the other
-*  so while it works for smaller strings it won't for what we're trying to do
-* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-* The compare method that i created comapares the chars of the strings rather than the entire string added together and
-* subtracted from the other.
-
-                        if(items.get(j).getName().trim().compareToIgnoreCase(items.get(max).getName().trim()) < 0)
-                            max = j;
-                        System.out.println("sorting..." + max + " - " + items.get(j).getName() + " with " + items.get(max).getName());
-                    }
-                    if(max != k)
-                    {
-                        Item temp = items.get(k);
-                        Item temp2 = items.get(max);
-                        items.add(k, temp2);
-                        items.add(max, temp);
-                    }
-                }
-//                items.clear();
-                System.out.println("finished sorting...");
-/*              for(int x = 0; x < sort.size(); x++)
-                {
-                    Item item = new Item(sort.get(x).getName(),sort.get(x).getAmount());
-                    System.out.println(item.getName());
-                    items.add(item);
-                }
-
-                long stop = System.nanoTime();
-                System.out.println((stop - start));
-
-        
-//        items = Sorty.sortString(items, curSize);
-
-        adapter.notifyDataSetChanged();
-        for(int k = 0; k < curSize; k++)
-        {
-            list.add(k, items.get(k).getName());
-            adapter.notifyDataSetChanged();
-        }
-                adapter.notifyDataSetChanged();
-            }
-        }).start(); */
-/*        if(curSize != 0 && curSize != 1)
-        {
-            br = new AlertDialog.Builder(this)
-                    .setTitle("Sort the list?")
-                    .setCancelable(false);
-            final Button az = new Button(ListMain.this);
-            az.setText("Sort a-z");
-            az.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    ad.dismiss();
-                    list = Sorty.sortAZ(list);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            final Button za = new Button(ListMain.this);
-            za.setText("Sort z-a");
-            za.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    ad.dismiss();
-                    items = Sorty.sortZA(items);
-                    for(int k = 0; k < items.size(); k++)
-                    {
-                        list.set(k, items.get(k).getName());
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            }); */
-/*            final Button numUp = new Button(ListMain.this);
-            numUp.setText("Sort 1 2 3");
-            numUp.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    ad.dismiss();
-                    items = Sorty.sortLH(items);
-                    for(int k = 0; k < items.size(); k++)
-                    {
-                        list.set(k, items.get(k).getName());
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            final Button numDown = new Button(ListMain.this);
-            numDown.setText("Sort 3 2 1");
-            numDown.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    ad.dismiss();
-                    items = Sorty.sortHL(items);
-                    for(int k = 0; k < items.size(); k++)
-                    {
-                        list.set(k, items.get(k).getName());
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            LinearLayout lay = new LinearLayout(ListMain.this);
-            lay.setOrientation(LinearLayout.VERTICAL);
-            lay.addView(az);
-            lay.addView(za);
-            lay.addView(numUp);
-            lay.addView(numDown);
-            br.setView(lay);
-
-            ad = br.create();
-            ad = br.show(); */
-//        }
     }
-//WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-// Hell fucking yes it worked.
+
     @Override
     protected void onPause()
     {
-        itemList.printAll();
-        paused = true;
         super.onPause();
     }
 
@@ -334,26 +153,41 @@ public class ListMain extends ActionBarActivity
             name.setHint("Name of item");
             final EditText amount = new EditText(ListMain.this);
             amount.setHint("Amount of items");
+            final EditText lowAmount = new EditText(ListMain.this);
+            lowAmount.setHint("Low Amount Warning");
 
             name.setInputType(InputType.TYPE_CLASS_TEXT);
             amount.setInputType(InputType.TYPE_CLASS_NUMBER);
+            lowAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
 
             LinearLayout lay = new LinearLayout(ListMain.this);
             lay.setOrientation(LinearLayout.VERTICAL);
             lay.addView(name);
             lay.addView(amount);
+            lay.addView(lowAmount);
             br.setView(lay);
             br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
 
-                    Item i = new Item(name.getText().toString());
-                    if (!TextUtils.isEmpty(amount.getText().toString()))
+                    if(!(TextUtils.isEmpty(name.getText().toString()) && TextUtils.isEmpty(amount.getText().toString()) && TextUtils.isEmpty(lowAmount.getText().toString())))
+                    {
+                        Item i = new Item(name.getText().toString());
                         i.setAmount(Integer.parseInt(amount.getText().toString()));
-                    db.insertRow(i.getName(),i.getAmount(),0);
-                    updateListView();
-                    ad.dismiss();
+                        i.setLow(Integer.parseInt(lowAmount.getText().toString()));
+                        db.insertRow(i.getName(),i.getAmount(),i.getLow());
+                        updateListView();
+                        ad.dismiss();
+                    }
+                    else
+                    {
+                        Toast toast = new Toast(ListMain.this);
+                        toast.setText("Please Fill All Spaces");
+                        toast.show();
+
+                    }
+
             }
             });
             ad = br.create();
@@ -363,11 +197,19 @@ public class ListMain extends ActionBarActivity
     }
     private void updateListView()
     {
-        Cursor cursor = db.getAllRows();
-        String[] fromFieldNames = new String[]{db.KEY_NAME,db.KEY_AMOUNT};
-        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView};
+        cursor = db.getAllRows();
+        String[] fromFieldNames = new String[]{db.KEY_NAME,db.KEY_AMOUNT,db.KEY_LOWAMOUNT};
+        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView,R.id.itemLowAmountTextView};
         adapter = new SimpleCursorAdapter(getBaseContext(), R.layout.activity_list_adapter, cursor, fromFieldNames, viewIds, 0);
         lv.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        db.close();
     }
 }
 

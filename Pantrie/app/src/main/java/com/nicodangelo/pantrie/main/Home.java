@@ -3,6 +3,7 @@ package com.nicodangelo.pantrie.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class Home extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
     }
 
     public void logOut(View view)

@@ -1,6 +1,7 @@
 package com.nicodangelo.pantrie.main;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ public class MainPantrie extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pantrie);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Home");
+        actionBar.hide();
         ///////////////////////////////////////////////////////////////////////////////////////////
         // Enable Local Datastore, and make a Test Parse Object!
         Parse.enableLocalDatastore(this);
@@ -44,7 +45,6 @@ public class MainPantrie extends ActionBarActivity
         Thread theThread = new Thread(r);
         theThread.start();
     }
-
     @Override
     public void onBackPressed()
     {
