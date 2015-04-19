@@ -1,13 +1,19 @@
 package com.nicodangelo.pantrie.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.list.ListMain;
+import com.parse.ParseUser;
 
-public class Home extends ActionBarActivity
+public class Home extends Activity
 {
 
     @Override
@@ -17,29 +23,30 @@ public class Home extends ActionBarActivity
         setContentView(R.layout.activity_home);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
+    public void logOut(View view)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent i = new Intent(this, LoadPantrie.class);
+        startActivity(i);
+    }
+
+    public void goToSettings(View view)
+    {
+        Intent i = new Intent(this, Home.class);
+        startActivity(i);
+    }
+
+    public void goToPantrie(View view)
+    {
+        Intent i = new Intent(this, ListMain.class);
+        startActivity(i);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    public void onBackPressed()
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
+    toast.show();
     }
 }

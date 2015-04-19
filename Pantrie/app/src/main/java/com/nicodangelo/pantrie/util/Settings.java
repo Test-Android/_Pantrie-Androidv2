@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.nicodangelo.pantrie.R;
 import com.nicodangelo.pantrie.game.ArrowGame;
 import com.nicodangelo.pantrie.list.ListMain;
+import com.nicodangelo.pantrie.main.Home;
 import com.nicodangelo.pantrie.main.LoadPantrie;
 import com.nicodangelo.pantrie.main.MainPantrie;
 import com.parse.ParseUser;
@@ -71,7 +72,7 @@ public class Settings extends ActionBarActivity {
 
     public void goBack(View view)
     {
-        Intent i = new Intent(this, ListMain.class);
+        Intent i = new Intent(this, Home.class);
         startActivity(i);
     }
 }

@@ -101,7 +101,7 @@ public class LoadPantrie extends ActionBarActivity
 
     public void LogInTheUser()
     {
-        Intent i = new Intent(this, ListMain.class);
+        Intent i = new Intent(this, Home.class);
         startActivity(i);
     }
 
