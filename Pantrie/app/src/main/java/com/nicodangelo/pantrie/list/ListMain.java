@@ -51,17 +51,8 @@ public class ListMain extends ActionBarActivity
         setContentView(R.layout.activity_list_main);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
+        db = new DBHandler(this);
         adapter = new ListAdapter(this, list);
-        db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory()
-        {
-        db = new DBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
-            @Override
-            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query)
-            {
-                return null;
-            }
-        }, 1);
-        db.databaseToString(list);
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,7 +92,7 @@ public class ListMain extends ActionBarActivity
                                             {
                                                 if (!TextUtils.isEmpty(one.getText().toString()))
                                                 {
-                                                    db.setItemAmount(list.get(position), Integer.parseInt(one.getText().toString()));
+//                                                    db.setItemAmount(list.get(position), Integer.parseInt(one.getText().toString()));
                                                 }
 //                                                if (!TextUtils.isEmpty(two.getText().toString()))
 //                                                    items.get(a).setLow(Integer.parseInt(two.getText().toString()));
@@ -364,9 +355,9 @@ public class ListMain extends ActionBarActivity
                     Item i = new Item(name.getText().toString());
                     if (!TextUtils.isEmpty(amount.getText().toString()))
                         i.setAmount(Integer.parseInt(amount.getText().toString()));
-                    db.addItem(i);
-                    db.getItemAmount(i.getName());
-                    db.databaseToString(list);
+//                    db.addItem(i);
+//                    db.getItemAmount(i.getName());
+//                    db.databaseToString(list);
                     adapter.notifyDataSetChanged();
 
                     ad.dismiss();
