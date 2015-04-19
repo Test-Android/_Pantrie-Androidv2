@@ -62,8 +62,13 @@
             android:label="@string/title_activity_load_pantrie" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".item.ListAdapter"
             android:label="@string/title_activity_list_adapter" >
+=======
+            android:name=".main.Home"
+            android:label="@string/title_activity_home" >
+>>>>>>> origin/master
         </activity>
     </application>
 
