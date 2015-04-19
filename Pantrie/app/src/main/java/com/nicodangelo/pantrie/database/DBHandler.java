@@ -24,7 +24,6 @@ public class DBHandler
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
 
-    // TODO: Setup your fields here:
     //these are the fields for the database
     public static final String KEY_NAME = "name";
     public static final String KEY_AMOUNT = "amount";
