@@ -55,7 +55,7 @@ public class PantrieDBHandler extends SQLiteOpenHelper
     public void deleteItem(String itemName)
     {
         SQLiteDatabase db = getWritableDatabase();
-        String query = ("DELETE FROM "+ TABLE_ITEMS + " WHERE " + COLUMN_ITEMNAME + "=\"" + itemName + "\"" + ";");
+        String query = ("DELETE FROM "+ TABLE_ITEMS + " WHERE " + COLUMN_ITEMNAME + "='" + itemName + "';");
         db.execSQL(query);
         System.out.println(query);
         System.out.println("this is the product " + COLUMN_ITEMNAME + "  " + itemName + "  " + COLUMN_ITEMAMOUNT);
