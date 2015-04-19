@@ -58,9 +58,11 @@ public class ListMain extends ActionBarActivity
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("List");
         adapter = new ListAdapter(this, list);
-        db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory() {
+        db = new PantrieDBHandler(this,"itemsDB", new SQLiteDatabase.CursorFactory()
+        {
             @Override
-            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
+            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query)
+            {
                 return null;
             }
         }, 1);

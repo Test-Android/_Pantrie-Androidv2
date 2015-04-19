@@ -100,7 +100,7 @@ public class PantrieDBHandler extends SQLiteOpenHelper
         int amount = 0;
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " +  COLUMN_ITEMNAME + " FROM " + TABLE_ITEMS + " WHERE itemname='" + itemName + "';";
+        String query = "SELECT " +  COLUMN_ITEMNAME + " FROM " + TABLE_ITEMS + " WHERE "+ COLUMN_ITEMNAME +"='" + itemName + "';";
 
         //Cursor points to a location in your results
         Cursor c = db.rawQuery(query, null);
