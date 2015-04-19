@@ -15,6 +15,7 @@ public class ListAdapter extends ArrayAdapter<String>
 {
     private Context context;
     private final ArrayList<String> values;
+
     public ListAdapter(Context context, ArrayList<String> values)
     {
         super(context, R.layout.activity_list_adapter,values);

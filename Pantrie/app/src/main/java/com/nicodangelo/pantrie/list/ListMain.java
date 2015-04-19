@@ -407,11 +407,5 @@ public class ListMain extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public void onBackPressed()
-    {
-        Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
-        toast.show();
-    }
 }
 
