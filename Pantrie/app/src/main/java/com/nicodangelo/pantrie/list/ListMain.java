@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -32,7 +33,6 @@ import java.util.logging.Handler;
 
 public class ListMain extends ActionBarActivity
 {
-    int curSize = 0;
     ListView lv;
     AlertDialog ad;
     AlertDialog.Builder br;
@@ -51,20 +51,15 @@ public class ListMain extends ActionBarActivity
         db.open();
         lv = (ListView) findViewById(R.id.listView);
         updateListView();
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                final int pos = position;
-                final int tempId = (int)id;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final int tempId = (int) id;
                 AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
                         .setTitle("Edit Pantrie?")
-                        .setNeutralButton("Edit Item", new DialogInterface.OnClickListener()
-                        {
+                        .setNeutralButton("Edit Item", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
+                            public void onClick(DialogInterface dialog, int which) {
 
                                 br = new AlertDialog.Builder(ListMain.this);
 
@@ -87,10 +82,8 @@ public class ListMain extends ActionBarActivity
                                 lay.addView(one);
                                 lay.addView(two);
                                 br.setView(lay);
-                                br.setNeutralButton("Ok", new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int whichButton)
-                                    {
+                                br.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
                                         cursor = db.getRow("'" + tempName.getText().toString() + "'");
                                         int amn = Integer.parseInt(tempAmn.getText().toString());
                                         int low = Integer.parseInt(tempLowAmn.getText().toString());
@@ -98,14 +91,12 @@ public class ListMain extends ActionBarActivity
                                             amn = Integer.parseInt(one.getText().toString());
                                         if (!TextUtils.isEmpty(two.getText().toString()))
                                             low = Integer.parseInt(two.getText().toString());
-                                        db.updateRow(tempId,tempName.getText().toString(),amn,low);
+                                        db.updateRow(tempId, tempName.getText().toString(), amn, low);
                                         updateListView();
                                     }
                                 });
-                                br.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int whichButton)
-                                    {
+                                br.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
                                         dialog.cancel();
                                     }
                                 });
@@ -115,7 +106,36 @@ public class ListMain extends ActionBarActivity
                         });
                 ab.create();
                 ab.show();
-                return false;
+            }
+        });
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
+                        .setTitle("Delete?")
+                        .setMessage("Are you sure?\nThis can't be undone.")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                TextView temp = (TextView)findViewById(R.id.itemNameTextView);
+                                db.deleteRow("'" + temp.getText().toString() + "'");
+                                updateListView();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+
+                            }
+                        });
+                ab.create();
+                ab.show();
+                return true;
             }
         });
     }
@@ -151,7 +171,8 @@ public class ListMain extends ActionBarActivity
         else if(id == R.id.action_add_item)
         {
             br = new AlertDialog.Builder(ListMain.this);
-            br.setTitle("Create New Item: All Fields Required");
+            br.setTitle("Create New Item: All Fields Required")
+              .setCancelable(false);
             final EditText name = new EditText(ListMain.this);
             name.setHint("Name of item");
             final EditText amount = new EditText(ListMain.this);
@@ -173,25 +194,13 @@ public class ListMain extends ActionBarActivity
             {
                 public void onClick(DialogInterface dialog, int whichButton)
                 {
-
-                    if(!(TextUtils.isEmpty(name.getText().toString()) && TextUtils.isEmpty(amount.getText().toString()) && TextUtils.isEmpty(lowAmount.getText().toString())))
-                    {
-                        Item i = new Item(name.getText().toString());
-                        i.setAmount(Integer.parseInt(amount.getText().toString()));
-                        i.setLow(Integer.parseInt(lowAmount.getText().toString()));
-                        db.insertRow(i.getName(),i.getAmount(),i.getLow());
-                        updateListView();
-                        ad.dismiss();
-                    }
-                    else
-                    {
-                        Toast toast = new Toast(ListMain.this);
-                        toast.setText("Please Fill All Spaces");
-                        toast.show();
-
-                    }
-
-            }
+                    Item i = new Item(name.getText().toString());
+                    i.setAmount(Integer.parseInt(amount.getText().toString()));
+                    i.setLow(Integer.parseInt(lowAmount.getText().toString()));
+                    db.insertRow(i.getName(), i.getAmount(), i.getLow());
+                    updateListView();
+                    ad.dismiss();
+                }
             });
             ad = br.create();
             ad = br.show();
@@ -205,7 +214,6 @@ public class ListMain extends ActionBarActivity
         int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView,R.id.itemLowAmountTextView};
         adapter = new SimpleCursorAdapter(getBaseContext(), R.layout.activity_list_adapter, cursor, fromFieldNames, viewIds, 0);
         lv.setAdapter(adapter);
-
     }
 
     @Override
@@ -213,6 +221,53 @@ public class ListMain extends ActionBarActivity
     {
         super.onDestroy();
         db.close();
+    }
+}
+class ClickHandler implements AdapterView.OnItemClickListener {
+
+    private boolean nonDoubleClick = true;
+    private long firstClickTime = 0L;
+    private final int DOUBLE_CLICK_TIMEOUT = 200;//ViewConfiguration.getDoubleTapTimeout();
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        // @TODO check and catch the double click event
+        synchronized(ClickHandler.this)
+        {
+            if(firstClickTime == 0)
+            {
+                firstClickTime = SystemClock.elapsedRealtime();
+                nonDoubleClick = true;
+            }
+            else
+            {
+                long deltaTime = SystemClock.elapsedRealtime() - firstClickTime;
+                firstClickTime = 0;
+                if(deltaTime < DOUBLE_CLICK_TIMEOUT)
+                {
+                    nonDoubleClick = false;
+                    this.onItemDoubleClick(parent, view, position, id);
+                    return;
+                }
+            }
+
+            view.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    if(nonDoubleClick)
+                    {
+                        // @TODO add your logic for single click event
+                        //
+                    }
+                }
+            }, DOUBLE_CLICK_TIMEOUT);
+        }
+    }
+
+    public void onItemDoubleClick(AdapterView<?> parent, View view, int position, long id) {
+        // @TODO override this method with your own logic
     }
 }
 
