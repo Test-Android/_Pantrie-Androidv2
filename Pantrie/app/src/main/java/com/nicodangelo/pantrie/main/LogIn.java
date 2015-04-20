@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
-import com.nicodangelo.pantrie.list.ListMain;
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
 
@@ -27,7 +26,7 @@ public class LogIn extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_load_pantrie);
+        setContentView(R.layout.activity_log_in);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
 

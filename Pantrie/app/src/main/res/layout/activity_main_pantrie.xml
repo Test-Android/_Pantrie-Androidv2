@@ -9,12 +9,11 @@
                 tools:context="com.nicodangelo.pantrie.main.MainPantrie">
 
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Pantrie"
-        android:id="@+id/textView"
+        android:id="@+id/imageView"
+        android:src="@drawable/loadscreen"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
