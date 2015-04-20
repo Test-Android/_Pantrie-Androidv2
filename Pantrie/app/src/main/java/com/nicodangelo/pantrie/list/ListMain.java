@@ -31,8 +31,7 @@ import java.util.logging.Handler;
 
 //whole or partial???
 
-public class ListMain extends ActionBarActivity
-{
+public class ListMain extends ActionBarActivity {
     ListView lv;
     AlertDialog ad;
     AlertDialog.Builder br;
@@ -41,8 +40,7 @@ public class ListMain extends ActionBarActivity
     Cursor cursor;
 
     @Override
-    public void onCreate(Bundle bundle)
-    {
+    public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_list_main);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -108,28 +106,23 @@ public class ListMain extends ActionBarActivity
                 ab.show();
             }
         });
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
                         .setTitle("Delete?")
                         .setMessage("Are you sure?\nThis can't be undone.")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                TextView temp = (TextView)findViewById(R.id.itemNameTextView);
+                            public void onClick(DialogInterface dialog, int which) {
+                                TextView temp = (TextView) findViewById(R.id.itemNameTextView);
                                 db.deleteRow("'" + temp.getText().toString() + "'");
                                 updateListView();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener()
-                        {
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i)
-                            {
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
                             }
                         });
@@ -140,39 +133,33 @@ public class ListMain extends ActionBarActivity
         });
     }
 
-    public void changeSort(View view)
-    {
+    public void changeSort(View view) {
         String no = "Fuck ya chicken strips";
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_list_main, menu);
         return true;
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_settings)
-        {
+        if (id == R.id.action_settings) {
             Intent i = new Intent(ListMain.this, Settings.class);
             startActivity(i);
             return true;
-        }
-        else if(id == R.id.action_add_item)
-        {
+        } else if (id == R.id.action_add_item) {
             br = new AlertDialog.Builder(ListMain.this);
             br.setTitle("Create New Item: All Fields Required")
-              .setCancelable(false);
+                    .setCancelable(false);
             final EditText name = new EditText(ListMain.this);
             name.setHint("Name of item");
             final EditText amount = new EditText(ListMain.this);
@@ -190,10 +177,8 @@ public class ListMain extends ActionBarActivity
             lay.addView(amount);
             lay.addView(lowAmount);
             br.setView(lay);
-            br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog, int whichButton)
-                {
+            br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     Item i = new Item(name.getText().toString());
                     i.setAmount(Integer.parseInt(amount.getText().toString()));
                     i.setLow(Integer.parseInt(lowAmount.getText().toString()));
@@ -207,18 +192,17 @@ public class ListMain extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-    public void updateListView()
-    {
+
+    public void updateListView() {
         cursor = db.getAllRows();
-        String[] fromFieldNames = new String[]{db.KEY_NAME,db.KEY_AMOUNT,db.KEY_LOWAMOUNT};
-        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView,R.id.itemLowAmountTextView};
+        String[] fromFieldNames = new String[]{db.KEY_NAME, db.KEY_AMOUNT, db.KEY_LOWAMOUNT};
+        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView, R.id.itemLowAmountTextView};
         adapter = new SimpleCursorAdapter(getBaseContext(), R.layout.activity_list_adapter, cursor, fromFieldNames, viewIds, 0);
         lv.setAdapter(adapter);
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         db.close();
     }

@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
+import com.nicodangelo.pantrie.database.DBHandler;
 import com.nicodangelo.pantrie.game.ArrowGame;
+import com.nicodangelo.pantrie.list.ListMain;
 import com.nicodangelo.pantrie.main.Home;
 import com.nicodangelo.pantrie.main.LogIn;
 import com.parse.ParseUser;
@@ -71,6 +73,13 @@ public class Settings extends ActionBarActivity {
     {
         Intent i = new Intent(this, Home.class);
         startActivity(i);
+    }
+    public void deleteDB(View view)
+    {
+        DBHandler db = new DBHandler(this);
+        db.open();
+        db.deleteAll();
+        db.close();
     }
 }
 
