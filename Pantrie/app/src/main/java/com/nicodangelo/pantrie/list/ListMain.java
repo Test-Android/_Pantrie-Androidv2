@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicodangelo.pantrie.R;
@@ -31,7 +32,6 @@ import java.util.logging.Handler;
 
 public class ListMain extends ActionBarActivity
 {
-    ArrayList<String> list = new ArrayList<String>();
     int curSize = 0;
     ListView lv;
     AlertDialog ad;
@@ -50,71 +50,74 @@ public class ListMain extends ActionBarActivity
         db = new DBHandler(this);
         db.open();
         lv = (ListView) findViewById(R.id.listView);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        updateListView();
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
-            System.out.print("asu;dfhasldufhasdlufhalsifhuda");
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id)
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                for(int k = 0; k < curSize; k++)
-                {
-                    if(k == position)
-                    {
-                        AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
-                                .setTitle("Edit Pantrie?")
-                                .setPositiveButton("Edit Item", new DialogInterface.OnClickListener()
+                final int pos = position;
+                final int tempId = (int)id;
+                AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this)
+                        .setTitle("Edit Pantrie?")
+                        .setNeutralButton("Edit Item", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+
+                                br = new AlertDialog.Builder(ListMain.this);
+
+                                final TextView tempName = (TextView) findViewById(R.id.itemNameTextView);
+                                final TextView tempAmn = (TextView) findViewById(R.id.itemAmountTextView);
+                                final TextView tempLowAmn = (TextView) findViewById(R.id.itemLowAmountTextView);
+
+                                br.setTitle(tempName.getText());
+
+                                final EditText one = new EditText(ListMain.this);
+                                one.setHint("Set Amount");
+                                final EditText two = new EditText(ListMain.this);
+                                two.setHint("Set Low Amount");
+
+                                one.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                two.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+                                LinearLayout lay = new LinearLayout(ListMain.this);
+                                lay.setOrientation(LinearLayout.VERTICAL);
+                                lay.addView(one);
+                                lay.addView(two);
+                                br.setView(lay);
+                                br.setNeutralButton("Ok", new DialogInterface.OnClickListener()
                                 {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
+                                    public void onClick(DialogInterface dialog, int whichButton)
                                     {
-                                        br = new AlertDialog.Builder(ListMain.this);
-                                        br.setTitle(list.get(position));
-
-                                        final EditText one = new EditText(ListMain.this);
-                                        one.setHint("Set Amount");
-                                        final EditText two = new EditText(ListMain.this);
-                                        two.setHint("Set Low Amount");
-
-                                        one.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                        two.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                                        LinearLayout lay = new LinearLayout(ListMain.this);
-                                        lay.setOrientation(LinearLayout.VERTICAL);
-                                        lay.addView(one);
-//                                        lay.addView(two);
-                                        br.setView(lay);
-                                        br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
-                                        {
-                                            public void onClick(DialogInterface dialog, int whichButton)
-                                            {
-                                                if (!TextUtils.isEmpty(one.getText().toString()))
-                                                {
-//                                                    db.setItemAmount(list.get(position), Integer.parseInt(one.getText().toString()));
-                                                }
-//                                                if (!TextUtils.isEmpty(two.getText().toString()))
-//                                                    items.get(a).setLow(Integer.parseInt(two.getText().toString()));
-                                                adapter.notifyDataSetChanged();
-
-                                            }
-                                        });
-                                        br.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                                        {
-                                            public void onClick(DialogInterface dialog, int whichButton)
-                                            {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        br.create();
-                                        br.show();
+                                        cursor = db.getRow("'" + tempName.getText().toString() + "'");
+                                        int amn = Integer.parseInt(tempAmn.getText().toString());
+                                        int low = Integer.parseInt(tempLowAmn.getText().toString());
+                                        if (!TextUtils.isEmpty(one.getText().toString()))
+                                            amn = Integer.parseInt(one.getText().toString());
+                                        if (!TextUtils.isEmpty(two.getText().toString()))
+                                            low = Integer.parseInt(two.getText().toString());
+                                        db.updateRow(tempId,tempName.getText().toString(),amn,low);
+                                        updateListView();
                                     }
                                 });
-                        ab.create();
-                        ab.show();
-                    }
-                }
+                                br.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int whichButton)
+                                    {
+                                        dialog.cancel();
+                                    }
+                                });
+                                br.create();
+                                br.show();
+                            }
+                        });
+                ab.create();
+                ab.show();
+                return false;
             }
         });
-        updateListView();
     }
 
     public void changeSort(View view)
@@ -195,7 +198,7 @@ public class ListMain extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-    private void updateListView()
+    public void updateListView()
     {
         cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{db.KEY_NAME,db.KEY_AMOUNT,db.KEY_LOWAMOUNT};

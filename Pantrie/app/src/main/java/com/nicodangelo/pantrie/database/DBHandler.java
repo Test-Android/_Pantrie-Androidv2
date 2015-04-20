@@ -156,7 +156,6 @@ public class DBHandler
         }
         return c;
     }
-
     // Get a specific row (by name)
     public Cursor getRow(String name)
     {
@@ -182,6 +181,7 @@ public class DBHandler
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
+
 
     /////////////////////////////////////////////////////////////////////
     //	Private Helper Classes:
