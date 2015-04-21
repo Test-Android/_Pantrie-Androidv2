@@ -1,0 +1,5 @@
+ListAdapter:
+#0042fd - dark blue
+#0071fd - lighter blue
+#0059fd - medium blue
+#fd7100 - orange
