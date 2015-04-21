@@ -191,6 +191,11 @@ public class ListMain extends ActionBarActivity{
             ad = br.create();
             ad = br.show();
         }
+        else
+        {
+            Intent i = new Intent(ListMain.this,Home.class);
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 
