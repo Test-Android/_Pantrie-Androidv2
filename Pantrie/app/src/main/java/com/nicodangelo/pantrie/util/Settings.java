@@ -80,6 +80,8 @@ public class Settings extends ActionBarActivity {
         db.open();
         db.deleteAll();
         db.close();
+        Intent i = new Intent(Settings.this, ListMain.class);
+        startActivity(i);
     }
 }
 
