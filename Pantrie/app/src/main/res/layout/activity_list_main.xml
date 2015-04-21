@@ -13,28 +13,44 @@
         android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/changeStyle" />
+        android:layout_below="@+id/textViewName" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/textViewItemName"
+        android:id="@+id/textViewName"
+        android:layout_alignTop="@+id/textViewAmount"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/changeStyle"
-        android:layout_toStartOf="@+id/changeStyle"/>
+        android:layout_alignParentStart="true" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="order"
-        android:id="@+id/changeStyle"
-        android:onClick="changeSort"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/textViewAmount"
+        android:id="@+id/textViewAmount"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_toRightOf="@+id/textViewName"
+        android:layout_toEndOf="@+id/textViewName"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/textViewLowAmount"
+        android:id="@+id/textViewLowAmount"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignTop="@+id/textViewAmount"
+        android:layout_toRightOf="@+id/textViewAmount"
+        android:layout_toEndOf="@+id/textViewAmount" />
 
 </RelativeLayout>
 

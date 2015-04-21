@@ -25,7 +25,8 @@
         android:text="Medium Text"
         android:id="@+id/itemAmountTextView"
         android:layout_alignBottom="@+id/itemNameTextView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="#0071fd" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,5 +36,7 @@
         android:id="@+id/itemLowAmountTextView"
         android:layout_alignTop="@+id/itemAmountTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:textColor="#0071fd" />
+
 </RelativeLayout>
