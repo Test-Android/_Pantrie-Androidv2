@@ -24,26 +24,6 @@
         android:text="Medium Text"
         android:id="@+id/itemAmountTextView"
         android:layout_alignBottom="@+id/itemNameTextView"
-        android:layout_alignLeft="@+id/itemLowAmountTextView"
-        android:layout_alignStart="@+id/itemLowAmountTextView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Amount:"
-        android:id="@+id/amountTextView"
-        android:layout_alignBaseline="@+id/itemAmountTextView"
-        android:layout_alignBottom="@+id/itemAmountTextView"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="low Amount:"
-        android:id="@+id/lowAmountTextView"
-        android:layout_below="@+id/itemNameTextView"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -52,7 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/itemLowAmountTextView"
-        android:layout_alignBottom="@+id/lowAmountTextView"
+        android:layout_alignTop="@+id/itemAmountTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>
