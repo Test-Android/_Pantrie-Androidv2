@@ -178,9 +178,15 @@ public class ListMain extends ActionBarActivity{
             lay.addView(amount);
             lay.addView(lowAmount);
             br.setView(lay);
-            br.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    Item i = new Item(name.getText().toString());
+            br.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int whichButton)
+                {
+                    Item i;
+                    if(!TextUtils.isEmpty(name.getText().toString()))
+                        i = new Item(name.getText().toString(),0,0);
+                    else
+                        i = new Item("",0,0);
                     i.setAmount(Integer.parseInt(amount.getText().toString()));
                     i.setLow(Integer.parseInt(lowAmount.getText().toString()));
                     db.insertRow(i.getName(), i.getAmount(), i.getLow());
