@@ -69,7 +69,6 @@ public class Sprite
         Rect dst = new Rect(x, y, x + width, y + height);
         canvas.drawBitmap(b,src,dst,null);
     }
-
     // direction = 0 up, 1 left, 2 down, 3 right,
     // animation = 3 back, 1 left, 0 front, 2 right
     private int getAnimationRow()
