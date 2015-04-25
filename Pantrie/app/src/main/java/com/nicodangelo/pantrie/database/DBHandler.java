@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.nicodangelo.pantrie.main.LogIn;
+
 public class DBHandler
 {
     /////////////////////////////////////////////////////////////////////
@@ -39,7 +41,7 @@ public class DBHandler
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
-    public static final String DATABASE_TABLE = "mainTable";
+    public static final String DATABASE_TABLE = "mainTable_";
     // Track DB version if a new version of your app changes the format.
     //this will erase the database and recreate it... atm.
     public static final int DATABASE_VERSION = 1;

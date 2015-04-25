@@ -22,6 +22,7 @@ public class MainPantrie extends ActionBarActivity
         // Enable Local Datastore, and make a Test Parse Object!
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "jGe97HPLspW4X6OfjyP3sHGiiPNvwobOJmoD86AP", "N14XxGfjhENApWZ9LyLBVxG1z09yrZxMUrdTf5IF");
+        System.out.println("INITIALIZED");
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         Runnable r = new Runnable()
@@ -46,9 +47,10 @@ public class MainPantrie extends ActionBarActivity
         theThread.start();
     }
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed(){}
+
+    /*
         Toast toast = Toast.makeText(getApplicationContext(), "There is no going back now:)", Toast.LENGTH_SHORT);
         toast.show();
-    }
+     */
 }
