@@ -34,8 +34,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textViewAmount"
         android:id="@+id/textViewAmount"
-        android:layout_alignTop="@+id/textViewLowAmount"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textViewName"
+        android:layout_toEndOf="@+id/textViewName"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,9 +46,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textViewLowAmount"
         android:id="@+id/textViewLowAmount"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView"/>
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignTop="@+id/textViewAmount"
+        android:layout_toRightOf="@+id/textViewAmount"
+        android:layout_toEndOf="@+id/textViewAmount" />
 
 </RelativeLayout>
 
