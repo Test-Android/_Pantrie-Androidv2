@@ -15,5 +15,9 @@
         android:title="Home"
         android:icon="@drawable/iconhome"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/organize_table"
+          android:title="Organize"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
 
 </menu>

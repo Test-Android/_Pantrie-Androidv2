@@ -182,6 +182,32 @@ public class DBHandler
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
 
+    //typeOfSort - sort the table by that given type(NAME, AMOUNT...)
+    //Direction - sort up (A - Z, 1 2 3) and DOWN (Z - A, 3 2 1)
+    public Cursor organizeTable(String typeOfSort, String Direction)
+    {
+        Cursor c;
+        //NAME
+        if(typeOfSort.equalsIgnoreCase("NAME") && Direction.equalsIgnoreCase("UP"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_NAME);
+        else if(typeOfSort.equalsIgnoreCase("NAME") && Direction.equalsIgnoreCase("DOWN"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_NAME + " DESC");
+        //AMOUNT
+        else if(typeOfSort.equalsIgnoreCase("AMOUNT") && Direction.equalsIgnoreCase("UP"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_AMOUNT);
+        else if(typeOfSort.equalsIgnoreCase("AMOUNT") && Direction.equalsIgnoreCase("DOWN"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_AMOUNT + " DESC");
+        //LOW AMOUNT
+        else if(typeOfSort.equalsIgnoreCase("LOW AMOUNT") && Direction.equalsIgnoreCase("UP"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_LOWAMOUNT);
+        else if(typeOfSort.equalsIgnoreCase("LOW AMOUNT") && Direction.equalsIgnoreCase("DOWN"))
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,KEY_LOWAMOUNT + " DESC");
+            //DEFAULT - do nothing...
+        else
+            c = db.query(DATABASE_TABLE,null,null,null,null,null,null);
+        return c;
+    }
+
 
     /////////////////////////////////////////////////////////////////////
     //	Private Helper Classes:

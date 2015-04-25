@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -187,8 +189,32 @@ public class ListMain extends ActionBarActivity{
                         i = new Item(name.getText().toString(),0,0);
                     else
                         i = new Item("",0,0);
-                    i.setAmount(Integer.parseInt(amount.getText().toString()));
-                    i.setLow(Integer.parseInt(lowAmount.getText().toString()));
+                    if(amount.getText().toString().length() < 10)
+                    {
+                        if(Long.parseLong(amount.getText().toString()) < Integer.MAX_VALUE)
+                            i.setAmount(Integer.parseInt(amount.getText().toString()));
+                        else
+                            i.setAmount(Integer.MAX_VALUE);
+                    }
+                    else
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), "YOU'RE AN IDIOT:)", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                    if(lowAmount.getText().toString().length() < 10)
+                    {
+                        if(Long.parseLong(lowAmount.getText().toString()) < Integer.MAX_VALUE)
+                            i.setLow(Integer.parseInt(lowAmount.getText().toString()));
+                        else
+                            i.setLow(Integer.MAX_VALUE);
+                    }
+                    else
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), "YOU'RE AN IDIOT:)", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                     db.insertRow(i.getName(), i.getAmount(), i.getLow());
                     updateListView();
                     ad.dismiss();
@@ -197,10 +223,14 @@ public class ListMain extends ActionBarActivity{
             ad = br.create();
             ad = br.show();
         }
-        else
+        else if(id == R.id.home_button)
         {
             Intent i = new Intent(ListMain.this,Home.class);
             startActivity(i);
+        }
+        else
+        {
+            organizeList();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -218,49 +248,92 @@ public class ListMain extends ActionBarActivity{
         super.onDestroy();
         db.close();
     }
-}
-class OnSwipeTouchListener implements View.OnTouchListener
-{
 
-    private final GestureDetector gestureDetector;
+    private void organizeList()
+    {
+        AlertDialog.Builder ab = new AlertDialog.Builder(ListMain.this);
+        ab.setTitle("Organize List. ")
+                .setMessage("How would you like to organize your list?");
+        final RadioButton name = new RadioButton(ListMain.this);
+        name.setText("Name");
+        final RadioButton amount = new RadioButton(ListMain.this);
+        amount.setText("Amount");
+        final RadioButton low = new RadioButton(ListMain.this);
+        low.setText("Low");
 
-    public OnSwipeTouchListener(Context context) {
-        gestureDetector = new GestureDetector(context, new GestureListener());
+        RadioGroup group1 = new RadioGroup(ListMain.this);
+        group1.addView(name);
+        name.setChecked(true);
+        group1.addView(amount);
+        group1.addView(low);
+
+        final RadioButton up = new RadioButton(ListMain.this);
+        up.setText("Ascending");
+        final RadioButton down = new RadioButton(ListMain.this);
+        down.setText("Descending");
+
+        RadioGroup group2 = new RadioGroup(ListMain.this);
+        group2.addView(up);
+        up.setChecked(true);
+        group2.addView(down);
+
+        LinearLayout layout = new LinearLayout(ListMain.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+//            layout.addView(name);
+//            layout.addView(amount);
+//            layout.addView(low);
+
+//            layout.addView(up);
+        //           layout.addView(down);
+        layout.addView(group1);
+        layout.addView(group2);
+
+        ab.setView(layout)
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        if(name.isChecked())
+                        {
+                            if(up.isChecked())
+                                cursor = db.organizeTable("name","up");
+                            else
+                                cursor = db.organizeTable("name","down");
+                        }
+                        else if(amount.isChecked())
+                        {
+                            if(up.isChecked())
+                                cursor = db.organizeTable("amount","up");
+                            else
+                                cursor = db.organizeTable("amount","down");
+                        }
+                        else
+                        {
+                            if(up.isChecked())
+                                cursor = db.organizeTable("low amount","up");
+                            else
+                                cursor = db.organizeTable("low amount","down");
+                        }
+                        ad.dismiss();
+
+                        String[] fromFieldNames = new String[]{db.KEY_NAME, db.KEY_AMOUNT, db.KEY_LOWAMOUNT};
+                        int[] viewIds = new int[]{R.id.itemNameTextView, R.id.itemAmountTextView, R.id.itemLowAmountTextView};
+                        adapter = new SimpleCursorAdapter(getBaseContext(), R.layout.activity_list_adapter, cursor, fromFieldNames, viewIds, 0);
+                        lv.setAdapter(adapter);
+                    }
+                })
+                .setNegativeButton("Never", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        ad.dismiss();
+                    }
+                });
+        ad = ab.create();
+        ad = ab.show();
     }
 
-    public void onSwipeLeft() {
-    }
-
-    public void onSwipeRight() {
-    }
-
-    public boolean onTouch(View v, MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
-    }
-
-    private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        private static final int SWIPE_DISTANCE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            float distanceX = e2.getX() - e1.getX();
-            float distanceY = e2.getY() - e1.getY();
-            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                if (distanceX > 0)
-                    onSwipeRight();
-                else
-                    onSwipeLeft();
-                return true;
-            }
-            return false;
-        }
-    }
 }
 
