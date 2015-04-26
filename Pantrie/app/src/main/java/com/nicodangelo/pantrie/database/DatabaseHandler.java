@@ -272,7 +272,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         {
             do
             {
-
+                //TODO
             }
             while (a.moveToNext() && b.moveToNext());
         }
